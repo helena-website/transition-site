@@ -13,8 +13,7 @@
   var TOPICS = ["Health & Human Services","Education & Workforce","Economy","Housing","Public Safety & Justice","Environment & Energy","Infrastructure / Transportation","Government Operations / Budget & Technology","Other"];
 
   var contact = [
-    { id: "first", label: "First name", type: "text", req: true, auto: "given-name" },
-    { id: "last", label: "Last name", type: "text", req: true, auto: "family-name" },
+    { id: "name", label: "Name", type: "text", req: true, auto: "name" },
     { id: "email", label: "Email", type: "email", req: true, auto: "email" },
     { id: "phone", label: "Phone", type: "tel", req: true, auto: "tel" },
     { id: "addr", label: "Address line 1", type: "text", req: true, full: true, auto: "address-line1" },
@@ -29,8 +28,7 @@
       notion: "Ideas",
       submit: "Submit idea",
       fields: [
-        { id: "first", label: "First name", type: "text", req: true, auto: "given-name" },
-        { id: "last", label: "Last name", type: "text", req: true, auto: "family-name" },
+        { id: "name", label: "Name", type: "text", req: true, auto: "name" },
         { id: "org", label: "Organization or business you represent", type: "text", full: true, hint: "Optional. Leave blank if you're writing as an individual.", auto: "organization" },
         { id: "email", label: "Email", type: "email", req: true, auto: "email" },
         { id: "city", label: "City or town", type: "text", auto: "address-level2" },
