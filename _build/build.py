@@ -188,7 +188,7 @@ def plan_cards():
     out = []
     for cat, date, title, desc, url in PLANS:
         out.append(f"""      <div class="card">
-        <p class="who">{cat} \u00b7 {date}</p>
+        <p class="who">{cat}</p>
         <h3>{title}</h3>
         <p>{desc}</p>
         <div class="spacer"></div>
@@ -202,9 +202,8 @@ def plan_cards():
 HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
-        <p class="eyebrow">Rhode Island · Transition 2026–27</p>
         <h1>Thank you, Rhode Island.</h1>
-        <p class="lead">Thank you to everyone who knocked doors, made calls and cast a ballot. Now the work begins. The transition team is getting ready for day one, and we want your ideas and your help. {ph("Welcome statement TBD")}</p>
+        <p class="lead">Thank you to everyone who knocked doors, made calls and cast a ballot. Now the work begins. The transition team is getting ready for day one, and we want your ideas and your help.</p>
         <div class="ctas">
           <a class="btn btn-green" href="{{pre}}get-involved/">Get involved</a>
           <a class="btn btn-ghost" href="{{pre}}team/">Meet the Governor-Elect</a>
@@ -241,10 +240,13 @@ TEAM = f"""  <section class="hero slim">
 
   <section class="band">
     <div class="wrap bio">
-      <img class="bio-photo" src="{{pre}}assets/img/helena-and-husband.webp" alt="Helena Foulkes with her husband" width="1000" height="620">
+      <div class="bio-photos">
+        <img class="bio-photo" src="{{pre}}assets/img/helena-and-husband.webp" alt="Helena Foulkes with her husband" width="1000" height="620">
+        <img class="bio-photo" src="{{pre}}assets/img/helena-at-park.webp" alt="Helena Foulkes talking with a family at a park" width="1000" height="667">
+      </div>
       <div class="prose">
         <p class="eyebrow" style="color:var(--green)">Governor-Elect</p>
-        <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Helena Foulkes</h2>
+        <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Meet Helena</h2>
         <p>Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.</p>
         <p>As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves\u2014even though tobacco brought in $2 billion in revenue\u2014because she believes that protecting people\u2019s health is more important than profits.</p>
         <p>Since coming just short in the 2022 race for governor, Helena has been working hard to improve our state, including partnering with the mayor of Central Falls to improve their public schools and combatting homelessness and domestic violence as a board member and volunteer at Rhode Island non-profits. Helena regularly holds community gatherings at people\u2019s homes to hear directly from Rhode Islanders about their concerns.</p>
@@ -387,7 +389,7 @@ PLANS_PAGE = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">Plans</p>
       <h1>Helena\u2019s plans for Rhode Island</h1>
-      <p class="lead">Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor. {ph("Intro copy TBD")}</p>
+      <p class="lead">Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor.</p>
     </div>
   </section>
 
