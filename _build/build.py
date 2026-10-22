@@ -363,7 +363,7 @@ SERVE = form_page(
     "What happens next",
     """<p>Our team reviews every request.</p>
         <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>
-        <p class="note" style="margin-top:20px"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island. It only signals your interest in being considered for a future role.</p>""",
+        <p class="note" style="margin-top:20px"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). It only signals your interest in being considered for a future role.</p>""",
     "Administration interest")
 
 NEWS_PAGE = f"""  <section class="hero slim">
