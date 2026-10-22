@@ -58,7 +58,7 @@ def page(path, title, body, desc="", forms=False):
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="{pre}" aria-label="Helena Foulkes Transition home"><span class="n">Helena Foulkes</span><span class="s">Transition Team</span></a>
+    <a class="logo" href="{pre}" aria-label="Helena Foulkes Transition home"><img src="{pre}assets/logo-governor-elect.png" alt="" width="600" height="314"></a>
     <nav class="links" aria-label="Main">
       {nav_html}
       <a class="btn btn-green" href="{pre}get-involved/"{gi_cur}>Get involved</a>
@@ -79,26 +79,25 @@ def page(path, title, body, desc="", forms=False):
 <footer>
   <div class="wrap">
     <div>
-      <a class="mark" href="{pre}"><span class="n">Helena Foulkes</span><span class="s">Transition Team</span></a>
-      <p style="margin-top:16px;max-width:22rem">Building an administration that works for every Rhode Islander.</p>
+      <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-Elect" width="600" height="314"></a>
     </div>
     <div>
       <h4>Contact</h4>
-      <p><a href="mailto:info@helenafoulkes.com">info@helenafoulkes.com</a> {ph("Placeholder")}</p>
-      <p>Press: <a href="mailto:press@helenafoulkes.com">press@helenafoulkes.com</a> {ph("Placeholder")}</p>
+      <p><a href="mailto:info@helenafoulkes.com">info@helenafoulkes.com</a></p>
+      <p>Press: <a href="mailto:press@helenafoulkes.com">press@helenafoulkes.com</a></p>
+      <p>PO Box 6191, Providence, RI 02940</p>
     </div>
     <div>
       <h4>Follow</h4>
       <ul>
-        <li><a href="#">Instagram</a> {ph("Link TBD")}</li>
-        <li><a href="#">Facebook</a> {ph("Link TBD")}</li>
-        <li><a href="#">X</a> {ph("Link TBD")}</li>
-        <li><a href="#">LinkedIn</a> {ph("Link TBD")}</li>
+        <li><a href="https://www.facebook.com/helena4RI" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.instagram.com/helenabfoulkes/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://x.com/HelenaBFoulkes" target="_blank" rel="noopener">X</a></li>
       </ul>
     </div>
     <div class="legal">
-      <p><strong>Privacy and public records.</strong> Information you submit through this site is used by the transition team to consider your idea, request or interest in serving. It may be shared within the transition and the incoming administration, and it may be subject to public records laws. {ph("Draft, for counsel to review")}</p>
-      <p class="paid">Paid for by [Transition entity name] {ph("TBD")}</p>
+      <p class="paid">Paid for by Helena for RI</p>
+      <p><a href="{pre}privacy-policy/">Privacy Policy</a></p>
     </div>
   </div>
 </footer>
@@ -426,6 +425,19 @@ PLANS_PAGE = f"""  <section class="hero slim">
   </section>
 """
 
+PRIVACY_PAGE = f"""  <section class="hero slim">
+    <div class="wrap">
+      <h1>Privacy Policy</h1>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap legal-text">
+{(ROOT / "_build" / "privacy.html").read_text(encoding="utf-8")}
+    </div>
+  </section>
+"""
+
 if __name__ == "__main__":
     page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
     page("team/", "Meet the Team", TEAM, "Governor-Elect Helena Foulkes and the transition leadership team.")
@@ -435,4 +447,5 @@ if __name__ == "__main__":
     page("get-involved/boards/", "Join a Board or Commission", BOARDS, "Express interest in a board or commission appointment.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
     page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
+    page("privacy-policy/", "Privacy Policy", PRIVACY_PAGE, "Privacy Policy and Terms of Use.")
     page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")

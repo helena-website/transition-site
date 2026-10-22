@@ -21,6 +21,8 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 |---|---|
 | `_build/build.py` | Generates every page from one shared header, nav and footer. Edit copy here. |
 | `assets/site.css` | All styles. Campaign colors and type. |
+| `assets/logo-governor-elect.png` | Logo used in the header and footer. |
+| `_build/privacy.html` | Privacy policy and terms text, published at `privacy-policy/`. |
 | `assets/forms.js` | Form previews, and the Fillout form IDs (`fillout: ""` per form). |
 | `index.html`, `team/`, `get-involved/`, `news/` | Generated pages. Don't edit by hand; rerun the build. |
 | `robots.txt` | Blocks search engines while this is a prototype. |
@@ -40,4 +42,4 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
   - Remove the `noindex` meta tag in `_build/build.py`.
   - Delete `robots.txt`, or change it to allow crawling.
   - Replace every yellow "placeholder" tag with final copy.
-  - Have counsel approve the privacy notice and the "Paid for by" line.
+  - Confirm the privacy policy (`_build/privacy.html`, copied from helenafoulkes.com/privacy-policy on Oct 22, 2026) and the "Paid for by Helena for RI" line still apply to the transition. Counsel should review both.
