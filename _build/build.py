@@ -118,7 +118,7 @@ ACTIONS = [
      "Have a fix for something state government could do better? Send it to the team building the first-year agenda."),
     ("invite/", "Invite the Governor-Elect", "Scheduling",
      "Request the Governor-Elect or a member of the team for your event, meeting or community gathering."),
-    ("boards/", "Request to join a board/commission", "Personnel",
+    ("boards/", "Join a board or commission", "Personnel",
      "Rhode Island's boards and commissions shape policy across the state. Tell us where you'd like to serve."),
     ("serve/", "Serve in the administration", "Personnel",
      "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé."),
@@ -129,7 +129,6 @@ def action_cards(pre_to_gi):
     cards = []
     for href, title, who, text in ACTIONS:
         cards.append(f"""      <div class="card">
-        <p class="who">Reviewed by: {who}</p>
         <h3>{title}</h3>
         <p>{text}</p>
         <div class="spacer"></div>
@@ -352,7 +351,7 @@ INVITE = form_page(
 
 BOARDS = form_page(
     "boards", "Boards and commissions", "Join a board or commission",
-    "Boards and commissions shape policy across Rhode Island. Tell us where you'd like to serve.",
+    "Interested in being considered for a board or commission? Tell us where you'd fit.",
     "What happens next",
     """<p>Our team reviews every request.</p>
         <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>""",
