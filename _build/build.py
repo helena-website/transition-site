@@ -39,7 +39,7 @@ def page(path, title, body, desc="", forms=False):
     gi_cur = ' aria-current="page"' if path.startswith("get-involved/") else ""
     menu_html = "\n          ".join(nav + [f'<a href="{pre}get-involved/"{gi_cur}>Get Involved</a>'])
     script = f'\n<script src="{pre}assets/forms.js" defer></script>' if forms else ""
-    full_title = "Helena Foulkes Transition" if not title else f"{title} | Helena Foulkes Transition"
+    full_title = "Helena Foulkes, Governor Elect" if not title else f"{title} | Helena Foulkes, Governor Elect"
     html = f"""<!doctype html>
 <html lang="en">
 <head>
