@@ -64,7 +64,7 @@
       ]
     },
     boards: {
-      fillout: "",
+      fillout: "3GR6txhyzJus",
       notion: "People (Track: Board or Commission)",
       submit: "Submit interest",
       fields: [{ sec: "Contact information" }].concat(contact, [
@@ -76,7 +76,7 @@
       ])
     },
     serve: {
-      fillout: "",
+      fillout: "3GR6txhyzJus",
       notion: "People (Track: Administration)",
       submit: "Submit interest",
       fields: [{ sec: "Contact information" }].concat(contact, [
