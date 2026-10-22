@@ -154,33 +154,33 @@ def news_list(items):
     return "\n".join(out)
 
 
-# Plans from helenafoulkes.com/plans (Oct 22, 2026). Links point to the files and pages on the
-# current campaign site; copy the PDFs into this repo before that site is replaced.
+# Plans from helenafoulkes.com/plans (Oct 22, 2026). PDFs are copied into plans/files/ so they
+# keep working after the campaign site is replaced. Links are relative to the plans/ page.
 PLANS = [
     ("Healthcare", "July 6", "Reimagining Rhode Island Healthcare",
      "Making Quality, Affordable Healthcare Accessible for All Rhode Islanders",
-     "https://helenafoulkes.com/wp-content/uploads/2026/07/Reimagining-Rhode-Island-Healthcare.pdf"),
+     "files/Reimagining-Rhode-Island-Healthcare.pdf"),
     ("Jobs/Economy", "June 4", "Believe in Rhode Island Part 3",
      "Creating & Growing Good-Paying Jobs",
-     "https://helenafoulkes.com/wp-content/uploads/2026/06/Believe-in-Rhode-Island-Creating-Growing-Good-Paying-Jobs.pdf"),
+     "files/Believe-in-Rhode-Island-Creating-Growing-Good-Paying-Jobs.pdf"),
     ("Jobs/Economy", "May 20", "Believe in Rhode Island Part 2",
      "Childcare and Transportation for Working Families",
-     "https://helenafoulkes.com/wp-content/uploads/2026/05/Childcare-Transportation.pdf"),
+     "files/Childcare-Transportation.pdf"),
     ("Jobs/Economy", "May 13", "Believe in Rhode Island Part 1",
      "$100 Million Proposal for Career and Technical Education",
-     "https://helenafoulkes.com/wp-content/uploads/2026/05/Classroom-to-Career.pdf"),
+     "files/Classroom-to-Career.pdf"),
     ("Energy", "April 2", "No False Choices",
      "Affordable Utility Bills and a Clean Energy Future",
-     "https://helenafoulkes.com/nofalsechoices"),
+     "files/No-False-Choices.pdf"),
     ("Housing", "March 2", "The Rhode Home Program",
      "Increasing Supply and Making Housing Affordable for all Rhode Islanders",
-     "https://helenafoulkes.com/rhodehome"),
+     "files/The-Rhode-Home-Program.pdf"),
     ("RIDOT Reform", "January 13", "Never Again: Accountability and Expertise to Stop the Next Bridge Disaster",
      "A Plan to Create the Office of Safety and Accountability, Putting Taxpayers and Safety Ahead of Contractor Profits",
-     "https://helenafoulkes.com/reformdot"),
+     "files/Department-of-Transportation.pdf"),
     ("Ethics Reform", "January 12", "You Shouldn\u2019t Have to Know a Guy",
      "Ensuring the State House Works for All Rhode Islanders, Not Just the Insiders",
-     "https://helenafoulkes.com/knowaguy"),
+     "files/You-Shouldnt-Have-to-Know-a-Guy.pdf"),
 ]
 
 
@@ -199,7 +199,7 @@ def plan_cards():
 
 # ---------- pages ----------
 
-HOME = f"""  <section class="hero split">
+HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
         <p class="eyebrow">Rhode Island · Transition 2026–27</p>
@@ -210,22 +210,8 @@ HOME = f"""  <section class="hero split">
           <a class="btn btn-ghost" href="{{pre}}team/">Meet the Governor-Elect</a>
         </div>
       </div>
-      <dl class="facts" aria-label="Key dates">
-        <div><dt>Election Day</dt><dd>Tue, Nov 3, 2026</dd></div>
-        <div><dt>Inauguration</dt><dd>Tue, Jan 5, 2027</dd></div>
-        <div><dt>Submissions</dt><dd>Reviewed on a rolling basis</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap bio">
-      <div class="portrait" role="img" aria-label="Photo placeholder">Photo of the<br>Governor-Elect<br>(from campaign)</div>
-      <div class="prose">
-        <p class="eyebrow" style="color:var(--green)">Governor-Elect</p>
-        <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Helena Foulkes</h2>
-        <p>Helena Foulkes spent her career running large organizations, including as president of CVS Pharmacy, and she is bringing that focus on results to Rhode Island's state government. {ph("Use campaign bio")}</p>
-        <a class="btn btn-line" href="{{pre}}team/">Read her bio</a>
+      <div class="hero-photo">
+        <img src="{{pre}}assets/img/helena-hero.webp" alt="Governor-Elect Helena Foulkes" width="665" height="900">
       </div>
     </div>
   </section>
@@ -243,18 +229,6 @@ HOME = f"""  <section class="hero split">
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">News</p>
-        <h2>Latest from the transition</h2>
-      </div>
-      <ul class="news">
-{news_list(NEWS[::-1][:3])}
-      </ul>
-      <p style="margin-top:28px"><a class="btn btn-line" href="{{pre}}news/">All news</a></p>
-    </div>
-  </section>
 """
 
 TEAM = f"""  <section class="hero slim">
@@ -267,13 +241,14 @@ TEAM = f"""  <section class="hero slim">
 
   <section class="band">
     <div class="wrap bio">
-      <div class="portrait" role="img" aria-label="Photo placeholder">Photo of the<br>Governor-Elect<br>(from campaign)</div>
+      <img class="bio-photo" src="{{pre}}assets/img/helena-and-husband.webp" alt="Helena Foulkes with her husband" width="1000" height="620">
       <div class="prose">
         <p class="eyebrow" style="color:var(--green)">Governor-Elect</p>
         <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Helena Foulkes</h2>
-        <p class="note warn">Placeholder bio. Replace with the campaign bio, per the site plan.</p>
-        <p>Helena Foulkes is a Rhode Islander and a business leader who spent her career running large organizations, including as president of CVS Pharmacy and later as chief executive of Hudson's Bay Company.</p>
-        <p>She ran for governor to make state government work better for the people who rely on it: families looking for housing they can afford, students and workers looking for opportunity, and businesses looking for a state that says yes.</p>
+        <p>Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.</p>
+        <p>As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves\u2014even though tobacco brought in $2 billion in revenue\u2014because she believes that protecting people\u2019s health is more important than profits.</p>
+        <p>Since coming just short in the 2022 race for governor, Helena has been working hard to improve our state, including partnering with the mayor of Central Falls to improve their public schools and combatting homelessness and domestic violence as a board member and volunteer at Rhode Island non-profits. Helena regularly holds community gatherings at people\u2019s homes to hear directly from Rhode Islanders about their concerns.</p>
+        <p>Helena is a compassionate, experienced and effective leader. Now, she\u2019s committed to making life better for every Rhode Islander.</p>
       </div>
     </div>
   </section>

@@ -22,6 +22,8 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 | `_build/build.py` | Generates every page from one shared header, nav and footer. Edit copy here. |
 | `assets/site.css` | All styles. Campaign colors and type. |
 | `assets/logo-governor-elect.png` | Logo used in the header and footer. |
+| `assets/img/` | Photos: Helena cutout for the home hero, Helena and her husband for Meet the Team. |
+| `plans/files/` | The 8 plan PDFs, copied from helenafoulkes.com so they keep working after cutover. |
 | `_build/privacy.html` | Privacy policy and terms text, published at `privacy-policy/`. |
 | `assets/forms.js` | Form previews, and the Fillout form IDs (`fillout: ""` per form). |
 | `index.html`, `team/`, `get-involved/`, `news/` | Generated pages. Don't edit by hand; rerun the build. |
