@@ -17,6 +17,7 @@ NAV = [
     ("", "Home"),
     ("team/", "Meet the Team"),
     ("plans/", "Plans"),
+    ("endorsements/", "Endorsements"),
     ("news/", "News"),
 ]
 
@@ -402,6 +403,46 @@ PLANS_PAGE = f"""  <section class="hero slim">
   </section>
 """
 
+# Endorsements from helenafoulkes.com/endorsements (Oct 22, 2026), stored in _build/endorsements.json.
+import json as _json
+from html import escape as _esc
+ENDORSEMENTS = _json.loads((ROOT / "_build" / "endorsements.json").read_text(encoding="utf-8"))
+
+
+def endorsement_sections():
+    order = []
+    for e in ENDORSEMENTS:
+        if e["section"] not in order:
+            order.append(e["section"])
+    out = []
+    for sec in order:
+        items = [e for e in ENDORSEMENTS if e["section"] == sec]
+        if all(e.get("img") for e in items):
+            cards = "\n".join(
+                f'''        <figure class="endorser"><img src="{{pre}}assets/img/endorsements/{e["img"]}" alt="" width="320" height="320" loading="lazy"><figcaption>{_esc(e["name"])}</figcaption></figure>'''
+                for e in items)
+            body = f'<div class="endorsers">\n{cards}\n      </div>'
+        else:
+            lis = "\n".join(f"        <li>{_esc(e['name'])}</li>" for e in items)
+            body = f'<ul class="committees">\n{lis}\n      </ul>'
+        out.append(f'''  <section class="band{" soft" if len(out) % 2 else ""}">
+    <div class="wrap">
+      <div class="sec-head"><h2>{_esc(sec)}</h2></div>
+      {body}
+    </div>
+  </section>''')
+    return "\n\n".join(out)
+
+
+ENDORSEMENTS_PAGE = f"""  <section class="hero slim">
+    <div class="wrap">
+      <h1>Endorsements</h1>
+    </div>
+  </section>
+
+{endorsement_sections()}
+"""
+
 PRIVACY_PAGE = f"""  <section class="hero slim">
     <div class="wrap">
       <h1>Privacy Policy</h1>
@@ -424,5 +465,6 @@ if __name__ == "__main__":
     page("get-involved/boards/", "Join a Board or Commission", BOARDS, "Express interest in a board or commission appointment.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
     page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
+    page("endorsements/", "Endorsements", ENDORSEMENTS_PAGE, "Leaders, unions and organizations endorsing Helena Foulkes.")
     page("privacy-policy/", "Privacy Policy", PRIVACY_PAGE, "Privacy Policy and Terms of Use.")
     page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")

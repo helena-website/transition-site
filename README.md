@@ -23,6 +23,7 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 | `assets/site.css` | All styles. Campaign colors and type. |
 | `assets/logo-governor-elect.png` | Logo used in the header and footer. |
 | `assets/img/` | Photos: Helena cutout for the home hero, Helena and her husband for Meet the Team. |
+| `_build/endorsements.json` + `assets/img/endorsements/` | Endorsement list and photos, copied from helenafoulkes.com/endorsements. Edit the JSON to add or remove names. |
 | `plans/files/` | The 8 plan PDFs, copied from helenafoulkes.com so they keep working after cutover. |
 | `_build/privacy.html` | Privacy policy and terms text, published at `privacy-policy/`. |
 | `assets/forms.js` | Form previews, and the Fillout form IDs (`fillout: ""` per form). |
