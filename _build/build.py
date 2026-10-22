@@ -118,7 +118,7 @@ ACTIONS = [
      "Have a fix for something state government could do better? Send it to the team building the first-year agenda."),
     ("invite/", "Invite the Governor-Elect", "Scheduling",
      "Request the Governor-Elect or a member of the team for your event, meeting or community gathering."),
-    ("boards/", "Join a board or commission", "Personnel",
+    ("boards/", "Request to join a board/commission", "Personnel",
      "Rhode Island's boards and commissions shape policy across the state. Tell us where you'd like to serve."),
     ("serve/", "Serve in the administration", "Personnel",
      "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé."),
@@ -286,7 +286,7 @@ GET_INVOLVED = f"""  <section class="hero slim">
       <div class="sec-head">
         <p class="eyebrow">About the transition</p>
         <h2>What guides our work</h2>
-        <p>Values statement to come from the transition team. {ph("Draft copy")}</p>
+        <p>Values statement to come from the transition team.</p>
       </div>
       <ul class="values">
         <li><h3>Results first</h3><p>Measure success by what changes for Rhode Islanders, not by press releases.</p></li>
@@ -345,28 +345,26 @@ IDEA = form_page(
 INVITE = form_page(
     "event", "Invite the Governor-Elect", "Invite the Governor-Elect",
     "Request the Governor-Elect or a member of the transition team for your event.",
-    "Before you submit",
-    """<ul>
-          <li>Send requests at least three weeks ahead when you can. {ph("Lead time TBD")}</li>
-          <li>Scheduling reviews every request and will reply by email.</li>
-          <li>If the Governor-Elect isn't available, we may offer a member of the team.</li>
-        </ul>""".replace("{ph(\"Lead time TBD\")}", ph("Lead time TBD")),
+    "What happens next",
+    """<p>Our team reviews every request.</p>
+        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>""",
     "Event request")
 
 BOARDS = form_page(
     "boards", "Boards and commissions", "Join a board or commission",
     "Boards and commissions shape policy across Rhode Island. Tell us where you'd like to serve.",
-    "About appointments",
-    """<p>This form covers appointments made by the Governor. The personnel team reviews every submission.</p>
-        <p class="note warn">The list of boards here is a sample. The final list of Tier 1 and Tier 2 appointments is still being set.</p>""",
+    "What happens next",
+    """<p>Our team reviews every request.</p>
+        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>""",
     "Board and commission interest")
 
 SERVE = form_page(
     "serve", "Serve in the administration", "Serve in the administration",
     "Interested in a role in a state agency or the Governor's Office? Tell us where you'd fit.",
-    "Please note",
-    """<p class="note"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island. It only signals your interest in being considered for a future role.</p>
-        <p style="margin-top:16px">The personnel team reviews every submission and will reach out if there's a fit.</p>""",
+    "What happens next",
+    """<p>Our team reviews every request.</p>
+        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>
+        <p class="note" style="margin-top:20px"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island. It only signals your interest in being considered for a future role.</p>""",
     "Administration interest")
 
 NEWS_PAGE = f"""  <section class="hero slim">
