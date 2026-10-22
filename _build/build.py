@@ -337,32 +337,28 @@ IDEA = form_page(
     "idea", "Share your idea", "Share your idea",
     "Tell the policy team what state government should do better, and how.",
     "What happens next",
-    """<p>The policy team reads every idea and routes it to the committee working on that issue.</p>
-        <p><strong>Our policy team may be in touch</strong> if they'd like to learn more.</p>""",
+    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Share your idea")
 
 INVITE = form_page(
     "event", "Invite the Governor-Elect", "Invite the Governor-Elect",
     "Request the Governor-Elect or a member of the transition team for your event.",
     "What happens next",
-    """<p>Our team reviews every request.</p>
-        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>""",
+    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Event request")
 
 BOARDS = form_page(
     "boards", "Boards and commissions", "Join a board or commission",
     "Interested in being considered for a board or commission? Tell us where you'd fit.",
     "What happens next",
-    """<p>Our team reviews every request.</p>
-        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>""",
+    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Board and commission interest")
 
 SERVE = form_page(
     "serve", "Serve in the administration", "Serve in the administration",
     "Interested in a role in a state agency or the Governor's Office? Tell us where you'd fit.",
     "What happens next",
-    """<p>Our team reviews every request.</p>
-        <p><strong>Our team may be in touch</strong> if they'd like to learn more.</p>
+    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>
         <p class="note" style="margin-top:20px"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). It only signals your interest in being considered for a future role.</p>""",
     "Administration interest")
 
