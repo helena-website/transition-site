@@ -11,12 +11,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent  # repo root
 
-PROTO = "Sample design for the transition team's review. Not public, and submissions aren't collected."
+PROTO = "Sample design for the transition team's review."
 
 NAV = [
     ("", "Home"),
     ("team/", "Meet the Team"),
-    ("get-involved/", "Get Involved"),
+    ("plans/", "Plans"),
     ("news/", "News"),
 ]
 
@@ -35,7 +35,8 @@ def page(path, title, body, desc="", forms=False):
         cur = ' aria-current="page"' if href == path else ""
         nav.append(f'<a href="{pre}{href}"{cur}>{label}</a>')
     nav_html = "\n      ".join(nav)
-    menu_html = "\n          ".join(nav)
+    gi_cur = ' aria-current="page"' if path.startswith("get-involved/") else ""
+    menu_html = "\n          ".join(nav + [f'<a href="{pre}get-involved/"{gi_cur}>Get Involved</a>'])
     script = f'\n<script src="{pre}assets/forms.js" defer></script>' if forms else ""
     full_title = "Helena Foulkes Transition" if not title else f"{title} | Helena Foulkes Transition"
     html = f"""<!doctype html>
@@ -60,7 +61,7 @@ def page(path, title, body, desc="", forms=False):
     <a class="mark" href="{pre}" aria-label="Helena Foulkes Transition home"><span class="n">Helena Foulkes</span><span class="s">Transition Team</span></a>
     <nav class="links" aria-label="Main">
       {nav_html}
-      <a class="btn btn-green" href="{pre}get-involved/">Get involved</a>
+      <a class="btn btn-green" href="{pre}get-involved/"{gi_cur}>Get involved</a>
     </nav>
     <details class="menu">
       <summary>Menu</summary>
@@ -151,6 +152,49 @@ def news_list(items):
     out = []
     for when, tag, title, text in items:
         out.append(f"""      <li><div class="when">{when}</div><div><span class="tag">{tag}</span><h3><a href="#">{title}</a></h3><p>{text} {ph("Sample")}</p></div></li>""")
+    return "\n".join(out)
+
+
+# Plans from helenafoulkes.com/plans (Oct 22, 2026). Links point to the files and pages on the
+# current campaign site; copy the PDFs into this repo before that site is replaced.
+PLANS = [
+    ("Healthcare", "July 6", "Reimagining Rhode Island Healthcare",
+     "Making Quality, Affordable Healthcare Accessible for All Rhode Islanders",
+     "https://helenafoulkes.com/wp-content/uploads/2026/07/Reimagining-Rhode-Island-Healthcare.pdf"),
+    ("Jobs/Economy", "June 4", "Believe in Rhode Island Part 3",
+     "Creating & Growing Good-Paying Jobs",
+     "https://helenafoulkes.com/wp-content/uploads/2026/06/Believe-in-Rhode-Island-Creating-Growing-Good-Paying-Jobs.pdf"),
+    ("Jobs/Economy", "May 20", "Believe in Rhode Island Part 2",
+     "Childcare and Transportation for Working Families",
+     "https://helenafoulkes.com/wp-content/uploads/2026/05/Childcare-Transportation.pdf"),
+    ("Jobs/Economy", "May 13", "Believe in Rhode Island Part 1",
+     "$100 Million Proposal for Career and Technical Education",
+     "https://helenafoulkes.com/wp-content/uploads/2026/05/Classroom-to-Career.pdf"),
+    ("Energy", "April 2", "No False Choices",
+     "Affordable Utility Bills and a Clean Energy Future",
+     "https://helenafoulkes.com/nofalsechoices"),
+    ("Housing", "March 2", "The Rhode Home Program",
+     "Increasing Supply and Making Housing Affordable for all Rhode Islanders",
+     "https://helenafoulkes.com/rhodehome"),
+    ("RIDOT Reform", "January 13", "Never Again: Accountability and Expertise to Stop the Next Bridge Disaster",
+     "A Plan to Create the Office of Safety and Accountability, Putting Taxpayers and Safety Ahead of Contractor Profits",
+     "https://helenafoulkes.com/reformdot"),
+    ("Ethics Reform", "January 12", "You Shouldn\u2019t Have to Know a Guy",
+     "Ensuring the State House Works for All Rhode Islanders, Not Just the Insiders",
+     "https://helenafoulkes.com/knowaguy"),
+]
+
+
+def plan_cards():
+    out = []
+    for cat, date, title, desc, url in PLANS:
+        out.append(f"""      <div class="card">
+        <p class="who">{cat} \u00b7 {date}</p>
+        <h3>{title}</h3>
+        <p>{desc}</p>
+        <div class="spacer"></div>
+        <a class="btn btn-blue" href="{url}" target="_blank" rel="noopener">Read the plan</a>
+      </div>""")
     return "\n".join(out)
 
 
@@ -365,6 +409,23 @@ NEWS_PAGE = f"""  <section class="hero slim">
   </section>
 """
 
+PLANS_PAGE = f"""  <section class="hero slim">
+    <div class="wrap">
+      <p class="eyebrow">Plans</p>
+      <h1>Helena\u2019s plans for Rhode Island</h1>
+      <p class="lead">Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor. {ph("Intro copy TBD")}</p>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="wrap">
+      <div class="cards">
+{plan_cards()}
+      </div>
+    </div>
+  </section>
+"""
+
 if __name__ == "__main__":
     page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
     page("team/", "Meet the Team", TEAM, "Governor-Elect Helena Foulkes and the transition leadership team.")
@@ -373,4 +434,5 @@ if __name__ == "__main__":
     page("get-involved/invite/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
     page("get-involved/boards/", "Join a Board or Commission", BOARDS, "Express interest in a board or commission appointment.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
+    page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
     page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")
