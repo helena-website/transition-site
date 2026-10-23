@@ -289,7 +289,6 @@ def committee_cards():
     out = []
     for name, charge in COMMITTEES:
         out.append(f"""      <div class="card cmte">
-        <p class="who">Policy committee</p>
         <h3>{name}</h3>
         <p>{charge}</p>
         <dl class="cmte-roster">
