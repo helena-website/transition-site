@@ -16,6 +16,7 @@ PROTO = "Sample design for the transition team's review."
 NAV = [
     ("", "Home"),
     ("team/", "Meet the Team"),
+    ("committees/", "Committees"),
     ("plans/", "Plans"),
     ("endorsements/", "Endorsements"),
     ("news/", "News"),
@@ -260,7 +261,7 @@ TEAM = f"""  <section class="hero slim">
       <div class="sec-head">
         <p class="eyebrow">Leadership</p>
         <h2>Transition leadership team</h2>
-        <p>Names and titles to come with the leadership announcement. {ph("TBD")}</p>
+        <p>Names and titles to come with the leadership announcement. {ph("TBD")} See every <a href="{{pre}}committees/">transition committee</a>.</p>
       </div>
       <div class="people">
         <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Transition Co-Chair</p></div>
@@ -268,6 +269,56 @@ TEAM = f"""  <section class="hero slim">
         <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Executive Director</p></div>
         <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Policy Director</p></div>
       </div>
+    </div>
+  </section>
+"""
+
+COMMITTEES = [
+    ("Health & Human Services", "Health care access and costs, behavioral health, and the agencies that serve families."),
+    ("Education & Workforce", "Pre-K through higher education, and training that leads to good jobs."),
+    ("Economy", "Small business, growth and making Rhode Island a place to build a career."),
+    ("Housing", "Supply, affordability and homelessness."),
+    ("Public Safety & Justice", "Safe communities, courts and corrections."),
+    ("Environment & Energy", "Climate, clean energy, utility costs and the coastline."),
+    ("Infrastructure & Transportation", "Roads, bridges, transit and ports."),
+    ("Government Operations, Budget & Technology", "A state government that works: budget, services and technology."),
+]
+
+
+def committee_cards():
+    out = []
+    for name, charge in COMMITTEES:
+        out.append(f"""      <div class="card cmte">
+        <p class="who">Policy committee</p>
+        <h3>{name}</h3>
+        <p>{charge}</p>
+        <dl class="cmte-roster">
+          <dt>Co-chairs</dt><dd>Names to come {ph("TBD")}</dd>
+          <dt>Members</dt><dd>Names to come {ph("TBD")}</dd>
+        </dl>
+      </div>""")
+    return "\n".join(out)
+
+
+COMMITTEES_PAGE = f"""  <section class="hero slim">
+    <div class="wrap">
+      <p class="eyebrow">Transition Committees</p>
+      <h1>Who is shaping the first-year agenda</h1>
+      <p class="lead">In the spirit of transparency, we are publishing every transition committee and the people who serve on it. Each committee reviews ideas from Rhode Islanders and sends recommendations to the Governor-Elect before inauguration.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Policy committees</p>
+        <h2>Eight committees, one for each priority area</h2>
+        <p>Members will be listed here when committees are announced. {ph("TBD")}</p>
+      </div>
+      <div class="cards">
+{committee_cards()}
+      </div>
+      <p style="margin-top:40px"><a class="btn btn-blue" href="{{pre}}get-involved/share-an-idea/">Share an idea with a committee</a></p>
     </div>
   </section>
 """
@@ -451,6 +502,7 @@ PRIVACY_PAGE = f"""  <section class="hero slim">
 if __name__ == "__main__":
     page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
     page("team/", "Meet the Team", TEAM, "Governor-Elect Helena Foulkes and the transition leadership team.")
+    page("committees/", "Committees", COMMITTEES_PAGE, "Every transition committee and the people who serve on it.")
     page("get-involved/", "Get Involved", GET_INVOLVED, "Share an idea, invite the Governor-Elect, or tell us you want to serve.")
     page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Send an idea to the transition policy team.", forms=True)
     page("get-involved/invite/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
