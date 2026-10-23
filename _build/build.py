@@ -119,8 +119,8 @@ ACTIONS = [
      "Have a fix for something state government could do better? Send it to the team building the first-year agenda."),
     ("invite/", "Invite the Governor-Elect", "Scheduling",
      "Request the Governor-Elect or a member of the team for your event, meeting or community gathering."),
-    ("boards/", "Join a board or commission", "Personnel",
-     "Rhode Island's boards and commissions shape policy across the state. Tell us where you'd like to serve."),
+    ("boards/", "Join a committee", "Personnel",
+     "Transition committees shape the agenda for Helena's first year. Tell us where you'd like to serve."),
     ("serve/", "Serve in the administration", "Personnel",
      "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé."),
 ]
@@ -398,11 +398,11 @@ INVITE = form_page(
     "Event request")
 
 BOARDS = form_page(
-    "boards", "Boards and commissions", "Join a board or commission",
-    "Interested in being considered for a board or commission? Tell us where you'd fit.",
+    "boards", "Committees", "Join a committee",
+    "Interested in being considered for a committee? Tell us where you'd fit.",
     "What happens next",
     """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
-    "Board and commission interest")
+    "Committee interest")
 
 SERVE = form_page(
     "serve", "Serve in the administration", "Serve in the administration",
@@ -506,7 +506,7 @@ if __name__ == "__main__":
     page("get-involved/", "Get Involved", GET_INVOLVED, "Share an idea, invite the Governor-Elect, or tell us you want to serve.")
     page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Send an idea to the transition policy team.", forms=True)
     page("get-involved/invite/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
-    page("get-involved/boards/", "Join a Board or Commission", BOARDS, "Express interest in a board or commission appointment.", forms=True)
+    page("get-involved/boards/", "Join a Committee", BOARDS, "Express interest in serving on a committee.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
     page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
     page("endorsements/", "Endorsements", ENDORSEMENTS_PAGE, "Leaders, unions and organizations endorsing Helena Foulkes.")

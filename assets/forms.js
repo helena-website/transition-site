@@ -9,7 +9,7 @@
 
   var AGENCIES = ["Administration - DOA","Behavioral Health - BHDDH","Child Welfare - DCYF","Commerce - EOC","Corrections - DOC","Education - RIDE","Emergency Management - RIEMA","Energy - OER","Environment - DEM","Health & Human Services (Medicaid) - EOHHS","Healthcare - OHIC","Healthy Aging - OHA","Higher Education - OPC","Housing - EOH","Human Services - DHS","Office of Management and Budget - OMB","Public Health - DOH","Public Safety - DPS","Revenue - DOR","Technology - DOIT","Transportation - DOT","Utilities - PUC","Veteran Services & Affairs - VS","Workforce (Labor & Training) - DLT"];
   var GOV_OFFICE = ["Leadership (C-Suite)","Boards and Commissions","Communications","Public Engagement","Constituent Services","Legislative Affairs","Operations & Strategy","Policy","Scheduling & Administrative Support","Legal"];
-  var BOARDS = ["Sample Board A","Sample Board B","Sample Commission C","Other"];
+  var BOARDS = ["Sample Committee A","Sample Committee B","Sample Committee C","Other"];
   var TOPICS = ["Health & Human Services","Education & Workforce","Economy","Housing","Public Safety & Justice","Environment & Energy","Infrastructure / Transportation","Government Operations / Budget & Technology","Other"];
 
   var contact = [
@@ -68,8 +68,8 @@
       notion: "People (Track: Board or Commission)",
       submit: "Submit interest",
       fields: [{ sec: "Contact information" }].concat(contact, [
-        { sec: "Boards and commissions" },
-        { id: "boards", label: "Which boards or commissions interest you?", type: "checks", req: true, full: true, options: BOARDS, hint: "Sample list. The final list of Tier 1 and Tier 2 appointments is still being set." },
+        { sec: "Committees" },
+        { id: "boards", label: "Which committees interest you?", type: "checks", req: true, full: true, options: BOARDS, hint: "Sample list. The final list of committees is still being set." },
         { sec: "Résumé" },
         { id: "resume", label: "Résumé (PDF)", type: "file", req: true, full: true, accept: ".pdf" },
         { id: "comments", label: "Additional comments", type: "textarea", full: true, hint: "Relevant experience, community ties, or anything else that helps the team." }

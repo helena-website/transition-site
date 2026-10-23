@@ -11,7 +11,7 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 |---|---|---|
 | `get-involved/share-an-idea/` | Share Your Idea | Ideas |
 | `get-involved/invite/` | Invite the Governor-Elect | Event Requests |
-| `get-involved/boards/` | Join a Board or Commission | People (Track: Board or Commission) |
+| `get-involved/boards/` | Join a Committee | People (Track: Board or Commission) |
 | `get-involved/serve/` | Serve in the Administration | People (Track: Administration) |
 
 - Until a Fillout form ID is set, each form page shows a preview that checks fields but sends nothing.
