@@ -203,8 +203,8 @@ def plan_cards():
 HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
-        <h1>Thank you, Rhode Island.</h1>
-        <p class="lead">Thank you to everyone who knocked doors, made calls and cast a ballot. Now the work begins. The transition team is getting ready for day one, and we want your ideas and your help.</p>
+        <h1>Let's get to work.</h1>
+        <p class="lead">Helena's transition team is getting ready for day one. Share an idea, invite Helena to an event, or raise your hand to serve.</p>
         <div class="ctas">
           <a class="btn btn-green" href="{{pre}}get-involved/">Get involved</a>
           <a class="btn btn-ghost" href="{{pre}}team/">Meet the Governor-Elect</a>
