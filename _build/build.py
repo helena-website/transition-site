@@ -7,6 +7,10 @@ works at any address (GitHub Pages staging, or the root of helenafoulkes.com).
 GitHub Pages (Jekyll) does not publish folders starting with "_", so this
 script stays private to the repo.
 """
+import re
+import shutil
+from datetime import date as _date
+from html import escape as _esc
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent  # repo root
@@ -16,9 +20,7 @@ PROTO = "Sample design for the transition team's review."
 NAV = [
     ("", "Home"),
     ("team/", "Meet the Team"),
-    ("committees/", "Committees"),
     ("plans/", "Plans"),
-    ("endorsements/", "Endorsements"),
     ("news/", "News"),
 ]
 
@@ -34,7 +36,7 @@ def page(path, title, body, desc="", forms=False):
     pre = "../" * depth
     nav = []
     for href, label in NAV:
-        cur = ' aria-current="page"' if href == path else ""
+        cur = ' aria-current="page"' if href == path or (href and path.startswith(href)) else ""
         nav.append(f'<a href="{pre}{href}"{cur}>{label}</a>')
     nav_html = "\n      ".join(nav)
     gi_cur = ' aria-current="page"' if path.startswith("get-involved/") else ""
@@ -84,10 +86,18 @@ def page(path, title, body, desc="", forms=False):
       <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-Elect" width="600" height="314"></a>
     </div>
     <div>
+      <h4>Get involved</h4>
+      <ul>
+        <li><a href="{pre}get-involved/serve/">Serve in the administration</a></li>
+        <li><a href="{pre}get-involved/share-an-idea/">Share your idea</a></li>
+      </ul>
+    </div>
+    <div>
       <h4>Contact</h4>
       <p><a href="mailto:info@helenafoulkes.com">info@helenafoulkes.com</a></p>
       <p>Press: <a href="mailto:press@helenafoulkes.com">press@helenafoulkes.com</a></p>
       <p>PO Box 6191, Providence, RI 02940</p>
+      <p><a href="{pre}invitehelena/">Invite the Governor-Elect</a></p>
     </div>
     <div>
       <h4>Follow</h4>
@@ -98,7 +108,7 @@ def page(path, title, body, desc="", forms=False):
       </ul>
     </div>
     <div class="legal">
-      <p class="paid">Paid for by Helena for RI</p>
+      <p class="paid">Built by RI volunteers and funded by Helena Transition</p>
       <p><a href="{pre}privacy-policy/">Privacy Policy</a></p>
     </div>
   </div>
@@ -114,45 +124,131 @@ def page(path, title, body, desc="", forms=False):
 
 # ---------- shared content ----------
 
+# The two forms promoted across the site (Home, Get Involved, footer). Serve comes first.
+# Invite the Governor-Elect (invitehelena/) is linked only from the footer Contact section.
+# Join a Board or Commission (get-involved/boards/) stays live but is not linked anywhere.
 ACTIONS = [
-    ("share-an-idea/", "Share your idea", "Policy team",
-     "Have a fix for something state government could do better? Send it to the team building the first-year agenda."),
-    ("invite/", "Invite the Governor-Elect", "Scheduling",
-     "Request the Governor-Elect or a member of the team for your event, meeting or community gathering."),
-    ("boards/", "Join a committee", "Personnel",
-     "Transition committees shape the agenda for Helena's first year. Tell us where you'd like to serve."),
-    ("serve/", "Serve in the administration", "Personnel",
-     "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé."),
+    ("serve/", "Serve in the administration",
+     "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé.", True),
+    ("share-an-idea/", "Share your idea",
+     "What could the state fix fast? Send your idea for the first 100 days.", False),
 ]
 
 
 def action_cards(pre_to_gi):
     cards = []
-    for href, title, who, text in ACTIONS:
-        cards.append(f"""      <div class="card">
+    for href, title, text, primary in ACTIONS:
+        cls = "card primary" if primary else "card"
+        btn = "btn-green" if primary else "btn-blue"
+        cards.append(f"""      <div class="{cls}">
         <h3>{title}</h3>
         <p>{text}</p>
         <div class="spacer"></div>
-        <a class="btn btn-blue" href="{pre_to_gi}{href}">{title}</a>
+        <a class="btn {btn}" href="{pre_to_gi}{href}">{title}</a>
       </div>""")
     return "\n".join(cards)
 
 
-NEWS = [
-    ("Nov 4, 2026", "Press release", "Governor-Elect Foulkes announces transition leadership team",
-     "Co-chairs and senior advisors who will guide the transition through Inauguration Day."),
-    ("Nov 10, 2026", "Committee announcement", "Transition policy committees named",
-     "Eight committees will review state agencies and recommend first-year priorities."),
-    ("Dec 1, 2026", "Cabinet rollout", "First cabinet appointments announced",
-     "The Governor-Elect names the first members of her cabinet."),
-]
+# ---------- news: one file per press release in _build/news/ ----------
+# File name = web address: _build/news/2026-11-04-some-title.txt -> news/2026-11-04-some-title/
+# See "How to post a press release" in the README.
+
+NEWS_SRC = ROOT / "_build" / "news"
+NEWS_OUT = ROOT / "news"
+SLUG_RE = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$")
+
+
+def _fmt_date(d):
+    return f"{d.strftime('%b')} {d.day}, {d.year}"
+
+
+def _inline(text):
+    """Escape text, then allow [link text](https://...) links."""
+    t = _esc(text)
+    return re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+|mailto:[^)\s]+)\)",
+                  lambda m: f'<a href="{m.group(2)}">{m.group(1)}</a>', t)
+
+
+def _body_html(text):
+    out = []
+    for block in re.split(r"\n\s*\n", text.strip()):
+        lines = [l.rstrip() for l in block.strip().splitlines() if l.strip()]
+        if not lines:
+            continue
+        if lines[0].startswith("## "):
+            out.append(f"<h3>{_inline(lines[0][3:])}</h3>")
+            lines = lines[1:]
+            if not lines:
+                continue
+        if all(l.startswith("- ") for l in lines):
+            items = "".join(f"<li>{_inline(l[2:])}</li>" for l in lines)
+            out.append(f"<ul>{items}</ul>")
+        else:
+            out.append(f"<p>{_inline(' '.join(lines))}</p>")
+    return "\n        ".join(out)
+
+
+def load_news():
+    items = []
+    for f in sorted(NEWS_SRC.glob("*.txt")):
+        slug = f.stem
+        if not SLUG_RE.match(slug):
+            raise SystemExit(f"News file name must look like 2026-11-04-short-title.txt (lowercase, dashes): {f.name}")
+        raw = f.read_text(encoding="utf-8")
+        if "\n---" not in raw:
+            raise SystemExit(f"{f.name}: put a line with --- between the details and the release text")
+        meta_txt, body = raw.split("\n---", 1)
+        meta = {}
+        for line in meta_txt.splitlines():
+            if ":" in line:
+                k, v = line.split(":", 1)
+                meta[k.strip().lower()] = v.strip()
+        for k in ("title", "summary"):
+            if not meta.get(k):
+                raise SystemExit(f"{f.name}: missing '{k}:' line")
+        d = _date.fromisoformat(meta.get("date") or slug[:10])
+        items.append({
+            "slug": slug, "date": d, "title": meta["title"], "summary": meta["summary"],
+            "type": meta.get("type", "Press release"),
+            "sample": meta.get("placeholder", "").lower() in ("yes", "true"),
+            "body": body.lstrip("-").strip(),
+        })
+    items.sort(key=lambda i: (i["date"], i["slug"]), reverse=True)
+    return items
+
+
+NEWS = load_news()
 
 
 def news_list(items):
+    if not items:
+        return '      <li><div></div><div><p>No press releases yet.</p></div></li>'
     out = []
-    for when, tag, title, text in items:
-        out.append(f"""      <li><div class="when">{when}</div><div><span class="tag">{tag}</span><h3><a href="#">{title}</a></h3><p>{text} {ph("Sample")}</p></div></li>""")
+    for i in items:
+        tag = f' {ph("Sample")}' if i["sample"] else ""
+        out.append(f"""      <li><div class="when">{_fmt_date(i["date"])}</div><div><span class="tag">{_esc(i["type"])}</span><h3><a href="{i["slug"]}/">{_esc(i["title"])}</a></h3><p>{_esc(i["summary"])}{tag}</p></div></li>""")
     return "\n".join(out)
+
+
+def release_page(i):
+    note = f'\n        <p class="note warn">Sample press release. Placeholder text, not a real announcement.</p>' if i["sample"] else ""
+    return f"""  <section class="hero slim">
+    <div class="wrap">
+      <p class="eyebrow"><a href="{{pre}}news/" style="color:inherit">News</a> / {_esc(i["type"])}</p>
+      <h1>{_esc(i["title"])}</h1>
+      <p class="lead">{_fmt_date(i["date"])}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="prose release">{note}
+        {_body_html(i["body"])}
+        <p class="release-back"><a href="{{pre}}news/">&larr; All news</a></p>
+      </div>
+    </div>
+  </section>
+"""
 
 
 # Plans from helenafoulkes.com/plans (Oct 22, 2026). PDFs are copied into plans/files/ so they
@@ -204,10 +300,10 @@ HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
         <h1>Let's get to work.</h1>
-        <p class="lead">Helena's transition team is getting ready for day one. Share an idea, invite Helena to an event, or raise your hand to serve.</p>
+        <p class="lead">Helena's transition team is getting ready for day one. Raise your hand to serve, or share an idea for the first 100 days.</p>
         <div class="ctas">
-          <a class="btn btn-green" href="{{pre}}get-involved/">Get involved</a>
-          <a class="btn btn-ghost" href="{{pre}}team/">Meet the Governor-Elect</a>
+          <a class="btn btn-green" href="{{pre}}get-involved/serve/">Serve in the administration</a>
+          <a class="btn btn-ghost" href="{{pre}}get-involved/share-an-idea/">Share your idea</a>
         </div>
       </div>
       <div class="hero-photo">
@@ -220,7 +316,7 @@ HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow">Get involved</p>
-        <h2>Four ways to help build the administration</h2>
+        <h2>Two ways to help build the administration</h2>
         <p>Every submission goes to the team responsible for it, and every one is read.</p>
       </div>
       <div class="cards">
@@ -230,6 +326,28 @@ HOME = f"""  <section class="hero split photo">
   </section>
 
 """
+
+
+def leader(name, title, bio, email=""):
+    mail = f'\n          <p class="email"><a href="mailto:{email}">{email}</a> {ph("Placeholder")}</p>' if email else ""
+    return f"""        <div class="person">
+          <div class="portrait" role="img" aria-label="Photo placeholder">Photo</div>
+          <h3>{name}</h3>
+          <p class="role">{title}</p>
+          <p class="pbio">{bio}</p>{mail}
+        </div>"""
+
+
+LEADERS = "\n".join([
+    leader("Caitlin Molina", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}", "caitlin@helenatransition.com"),
+    leader("RJ Kermes", "Deputy Transition Director", f"Bio to come. {ph('TBD')}"),
+    leader(f"Name {ph('TBD')}", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}"),
+    leader(f"Name {ph('TBD')}", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}"),
+])
+
+COMMITTEE_LEADS = "\n".join(
+    f"""        <li><strong>Name {ph('TBD')}</strong><span>Current role and organization {ph('TBD')}</span></li>"""
+    for _ in range(6))
 
 TEAM = f"""  <section class="hero slim">
     <div class="wrap">
@@ -261,63 +379,24 @@ TEAM = f"""  <section class="hero slim">
       <div class="sec-head">
         <p class="eyebrow">Leadership</p>
         <h2>Transition leadership team</h2>
-        <p>Names and titles to come with the leadership announcement. {ph("TBD")} See every <a href="{{pre}}committees/">transition committee</a>.</p>
+        <p>Names, titles and headshots to come. {ph("TBD")}</p>
       </div>
       <div class="people">
-        <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Transition Co-Chair</p></div>
-        <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Transition Co-Chair</p></div>
-        <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Executive Director</p></div>
-        <div class="person"><div class="portrait" role="img" aria-label="Photo placeholder">Photo</div><h3>Name TBD</h3><p>Policy Director</p></div>
+{LEADERS}
       </div>
-    </div>
-  </section>
-"""
-
-COMMITTEES = [
-    ("Health & Human Services", "Health care access and costs, behavioral health, and the agencies that serve families."),
-    ("Education & Workforce", "Pre-K through higher education, and training that leads to good jobs."),
-    ("Economy", "Small business, growth and making Rhode Island a place to build a career."),
-    ("Housing", "Supply, affordability and homelessness."),
-    ("Public Safety & Justice", "Safe communities, courts and corrections."),
-    ("Environment & Energy", "Climate, clean energy, utility costs and the coastline."),
-    ("Infrastructure & Transportation", "Roads, bridges, transit and ports."),
-    ("Government Operations, Budget & Technology", "A state government that works: budget, services and technology."),
-]
-
-
-def committee_cards():
-    out = []
-    for name, charge in COMMITTEES:
-        out.append(f"""      <div class="card cmte">
-        <h3>{name}</h3>
-        <p>{charge}</p>
-        <dl class="cmte-roster">
-          <dt>Co-chairs</dt><dd>Names to come {ph("TBD")}</dd>
-          <dt>Members</dt><dd>Names to come {ph("TBD")}</dd>
-        </dl>
-      </div>""")
-    return "\n".join(out)
-
-
-COMMITTEES_PAGE = f"""  <section class="hero slim">
-    <div class="wrap">
-      <p class="eyebrow">Transition Committees</p>
-      <h1>Who is shaping the first-year agenda</h1>
-      <p class="lead">In the spirit of transparency, we are publishing every transition committee and the people who serve on it. Each committee reviews ideas from Rhode Islanders and sends recommendations to the Governor-Elect before inauguration.</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Policy committees</p>
-        <h2>Eight committees, one for each priority area</h2>
-        <p>Members will be listed here when committees are announced. {ph("TBD")}</p>
+        <p class="eyebrow">Committees</p>
+        <h2>Committee leads</h2>
+        <p>The people leading each transition committee. Names to come. {ph("TBD")}</p>
       </div>
-      <div class="cards">
-{committee_cards()}
-      </div>
-      <p style="margin-top:40px"><a class="btn btn-blue" href="{{pre}}get-involved/share-an-idea/">Share an idea with a committee</a></p>
+      <ul class="leads">
+{COMMITTEE_LEADS}
+      </ul>
     </div>
   </section>
 """
@@ -326,7 +405,7 @@ GET_INVOLVED = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">Get Involved</p>
       <h1>Help build an administration that works</h1>
-      <p class="lead">Share an idea, invite the Governor-Elect to your community, or tell us you want to serve.</p>
+      <p class="lead">Tell us you want to serve, or share an idea for the first 100 days.</p>
     </div>
   </section>
 
@@ -359,10 +438,11 @@ GET_INVOLVED = f"""  <section class="hero slim">
 """
 
 
-def form_page(key, eyebrow, title, lead, side_title, side_html, label):
+def form_page(key, eyebrow, title, lead, side_title, side_html, label, crumb=True):
+    trail = f'<a href="{{pre}}get-involved/" style="color:inherit">Get Involved</a> / {eyebrow}' if crumb else eyebrow
     return f"""  <section class="hero slim">
     <div class="wrap">
-      <p class="eyebrow"><a href="{{pre}}get-involved/" style="color:inherit">Get Involved</a> / {eyebrow}</p>
+      <p class="eyebrow">{trail}</p>
       <h1>{title}</h1>
       <p class="lead">{lead}</p>
     </div>
@@ -384,7 +464,7 @@ def form_page(key, eyebrow, title, lead, side_title, side_html, label):
 
 IDEA = form_page(
     "idea", "Share your idea", "Share your idea",
-    "Tell the policy team what state government should do better, and how.",
+    f"What could the state fix fast? Tell us the problem and your idea for the first 100 days. Your story might be one Helena tells. {ph('Draft copy')}",
     "What happens next",
     """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Share your idea")
@@ -394,7 +474,7 @@ INVITE = form_page(
     "Request the Governor-Elect or a member of the transition team for your event.",
     "What happens next",
     """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
-    "Event request")
+    "Event request", crumb=False)
 
 BOARDS = form_page(
     "boards", "Committees", "Join a committee",
@@ -415,14 +495,14 @@ NEWS_PAGE = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">News</p>
       <h1>Transition news</h1>
-      <p class="lead">Press releases, committee announcements and cabinet appointments.</p>
+      <p class="lead">Press releases and announcements from the transition.</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
       <ul class="news">
-{news_list(NEWS[::-1])}
+{news_list(NEWS)}
       </ul>
     </div>
   </section>
@@ -445,46 +525,6 @@ PLANS_PAGE = f"""  <section class="hero slim">
   </section>
 """
 
-# Endorsements from helenafoulkes.com/endorsements (Oct 22, 2026), stored in _build/endorsements.json.
-import json as _json
-from html import escape as _esc
-ENDORSEMENTS = _json.loads((ROOT / "_build" / "endorsements.json").read_text(encoding="utf-8"))
-
-
-def endorsement_sections():
-    order = []
-    for e in ENDORSEMENTS:
-        if e["section"] not in order:
-            order.append(e["section"])
-    out = []
-    for sec in order:
-        items = [e for e in ENDORSEMENTS if e["section"] == sec]
-        if all(e.get("img") for e in items):
-            cards = "\n".join(
-                f'''        <figure class="endorser"><img src="{{pre}}assets/img/endorsements/{e["img"]}" alt="" width="320" height="320" loading="lazy"><figcaption>{_esc(e["name"])}</figcaption></figure>'''
-                for e in items)
-            body = f'<div class="endorsers">\n{cards}\n      </div>'
-        else:
-            lis = "\n".join(f"        <li>{_esc(e['name'])}</li>" for e in items)
-            body = f'<ul class="committees">\n{lis}\n      </ul>'
-        out.append(f'''  <section class="band{" soft" if len(out) % 2 else ""}">
-    <div class="wrap">
-      <div class="sec-head"><h2>{_esc(sec)}</h2></div>
-      {body}
-    </div>
-  </section>''')
-    return "\n\n".join(out)
-
-
-ENDORSEMENTS_PAGE = f"""  <section class="hero slim">
-    <div class="wrap">
-      <h1>Endorsements</h1>
-    </div>
-  </section>
-
-{endorsement_sections()}
-"""
-
 PRIVACY_PAGE = f"""  <section class="hero slim">
     <div class="wrap">
       <h1>Privacy Policy</h1>
@@ -498,16 +538,38 @@ PRIVACY_PAGE = f"""  <section class="hero slim">
   </section>
 """
 
+
+
+def redirect(path, target):
+    """Small page that forwards an old address to its new one."""
+    out = ROOT / path / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta http-equiv="refresh" content="0; url={target}"><link rel="canonical" href="{target}"><title>Moved</title></head><body><p>This page has moved: <a href="{target}">continue</a>.</p></body></html>
+""", encoding="utf-8")
+    print("wrote", out.relative_to(ROOT.parent), "->", target)
+
+
+def build_news():
+    page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")
+    keep = {i["slug"] for i in NEWS}
+    for i in NEWS:
+        page(f"news/{i['slug']}/", _esc(i["title"]), release_page(i), _esc(i["summary"]))
+    # Remove pages for releases whose file was deleted.
+    for d in NEWS_OUT.iterdir():
+        if d.is_dir() and SLUG_RE.match(d.name) and d.name not in keep:
+            shutil.rmtree(d)
+            print("removed", d.relative_to(ROOT.parent))
+
+
 if __name__ == "__main__":
     page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
     page("team/", "Meet the Team", TEAM, "Governor-Elect Helena Foulkes and the transition leadership team.")
-    page("committees/", "Committees", COMMITTEES_PAGE, "Every transition committee and the people who serve on it.")
-    page("get-involved/", "Get Involved", GET_INVOLVED, "Share an idea, invite the Governor-Elect, or tell us you want to serve.")
-    page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Send an idea to the transition policy team.", forms=True)
-    page("get-involved/invite/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
+    page("get-involved/", "Get Involved", GET_INVOLVED, "Serve in the administration, or share an idea for the first 100 days.")
+    page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Share an idea for the first 100 days.", forms=True)
+    page("invitehelena/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
+    redirect("get-involved/invite/", "../../invitehelena/")
     page("get-involved/boards/", "Join a Committee", BOARDS, "Express interest in serving on a committee.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
     page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
-    page("endorsements/", "Endorsements", ENDORSEMENTS_PAGE, "Leaders, unions and organizations endorsing Helena Foulkes.")
     page("privacy-policy/", "Privacy Policy", PRIVACY_PAGE, "Privacy Policy and Terms of Use.")
-    page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")
+    build_news()

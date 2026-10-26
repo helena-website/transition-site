@@ -1,0 +1,21 @@
+title: Governor-Elect Foulkes announces transition leadership team
+date: 2026-11-04
+type: Press release
+summary: The leadership team that will guide the transition through Inauguration Day.
+placeholder: yes
+---
+PROVIDENCE, RI: Governor-Elect Helena Foulkes today announced the leadership team that will guide her transition through Inauguration Day.
+
+"Sample quote from the Governor-Elect about getting ready for day one."
+
+## About the transition team
+
+The transition team will review state agencies, recommend first-year priorities and identify people to serve in the administration.
+
+- Sample bullet: agency reviews
+- Sample bullet: first-year priorities
+- Sample bullet: key appointments
+
+Rhode Islanders can share ideas or express interest in serving at the transition website.
+
+Media contact: [press@helenafoulkes.com](mailto:press@helenafoulkes.com)
