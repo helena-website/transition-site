@@ -137,7 +137,7 @@ section.band.tight .wrap{padding-block:56px}
 @media (max-width:860px){.bio{grid-template-columns:1fr;gap:24px}.portrait{max-width:240px}}
 
 .people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.person{display:grid;gap:6px}
+.person{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start}
 .person .portrait{aspect-ratio:1/1;font-size:11px}
 .person h3{font-size:20px}
 .person p{margin:0;color:var(--muted);font-size:14px}
@@ -207,7 +207,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 
 /* footer */
 footer{background:var(--navy);color:#C9CEE6;font-size:14px}
-footer .wrap{padding-block:48px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px}
+footer .wrap{padding-block:48px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
 footer .mark .n{font-size:22px}
 footer h4{margin:0 0 10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-lt)}
 footer a{color:var(--white)}

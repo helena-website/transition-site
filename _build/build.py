@@ -86,18 +86,11 @@ def page(path, title, body, desc="", forms=False):
       <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-Elect" width="600" height="314"></a>
     </div>
     <div>
-      <h4>Get involved</h4>
-      <ul>
-        <li><a href="{pre}get-involved/serve/">Serve in the administration</a></li>
-        <li><a href="{pre}get-involved/share-an-idea/">Share your idea</a></li>
-      </ul>
-    </div>
-    <div>
       <h4>Contact</h4>
-      <p><a href="mailto:info@helenafoulkes.com">info@helenafoulkes.com</a></p>
-      <p>Press: <a href="mailto:press@helenafoulkes.com">press@helenafoulkes.com</a></p>
-      <p>PO Box 6191, Providence, RI 02940</p>
+      <p><a href="mailto:info@helenatransition.com">info@helenatransition.com</a></p>
+      <p>Press: <a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
       <p><a href="{pre}invitehelena/">Invite the Governor-Elect</a></p>
+      <p>PO Box 6191, Providence, RI 02940</p>
     </div>
     <div>
       <h4>Follow</h4>
@@ -131,7 +124,7 @@ ACTIONS = [
     ("serve/", "Serve in the administration",
      "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé.", True),
     ("share-an-idea/", "Share your idea",
-     "What could the state fix fast? Send your idea for the first 100 days.", False),
+     "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.", False),
 ]
 
 
@@ -300,7 +293,7 @@ HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
         <h1>Let's get to work.</h1>
-        <p class="lead">Helena's transition team is getting ready for day one. Raise your hand to serve, or share an idea for the first 100 days.</p>
+        <p class="lead">Helena's transition team is getting ready to make the state work for all Rhode Islanders. Raise your hand to serve or share an idea.</p>
         <div class="ctas">
           <a class="btn btn-green" href="{{pre}}get-involved/serve/">Serve in the administration</a>
           <a class="btn btn-ghost" href="{{pre}}get-involved/share-an-idea/">Share your idea</a>
@@ -315,9 +308,7 @@ HOME = f"""  <section class="hero split photo">
   <section class="band lav">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Get involved</p>
-        <h2>Two ways to help build the administration</h2>
-        <p>Every submission goes to the team responsible for it, and every one is read.</p>
+        <h2>Two ways to get involved</h2>
       </div>
       <div class="cards">
 {action_cards("{pre}get-involved/")}
@@ -328,25 +319,24 @@ HOME = f"""  <section class="hero split photo">
 """
 
 
-def leader(name, title, bio, email=""):
-    mail = f'\n          <p class="email"><a href="mailto:{email}">{email}</a> {ph("Placeholder")}</p>' if email else ""
+def leader(name, title, email=""):
+    mail = f'\n          <p class="email"><a href="mailto:{email}">{email}</a></p>' if email else ""
     return f"""        <div class="person">
           <div class="portrait" role="img" aria-label="Photo placeholder">Photo</div>
           <h3>{name}</h3>
-          <p class="role">{title}</p>
-          <p class="pbio">{bio}</p>{mail}
+          <p class="role">{title}</p>{mail}
         </div>"""
 
 
 LEADERS = "\n".join([
-    leader("Caitlin Molina", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}", "caitlin@helenatransition.com"),
-    leader("RJ Kermes", "Deputy Transition Director", f"Bio to come. {ph('TBD')}"),
-    leader(f"Name {ph('TBD')}", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}"),
-    leader(f"Name {ph('TBD')}", f"Title {ph('TBD')}", f"Bio to come. {ph('TBD')}"),
+    leader("Caitlin Molina", "Title", "caitlin@helenatransition.com"),
+    leader("RJ Kermes", "Deputy Transition Director"),
+    leader("Name", "Title"),
+    leader("Name", "Title"),
 ])
 
 COMMITTEE_LEADS = "\n".join(
-    f"""        <li><strong>Name {ph('TBD')}</strong><span>Current role and organization {ph('TBD')}</span></li>"""
+    """        <li><strong>Name</strong><span>Current role and organization</span></li>"""
     for _ in range(6))
 
 TEAM = f"""  <section class="hero slim">
@@ -379,7 +369,6 @@ TEAM = f"""  <section class="hero slim">
       <div class="sec-head">
         <p class="eyebrow">Leadership</p>
         <h2>Transition leadership team</h2>
-        <p>Names, titles and headshots to come. {ph("TBD")}</p>
       </div>
       <div class="people">
 {LEADERS}
@@ -392,7 +381,6 @@ TEAM = f"""  <section class="hero slim">
       <div class="sec-head">
         <p class="eyebrow">Committees</p>
         <h2>Committee leads</h2>
-        <p>The people leading each transition committee. Names to come. {ph("TBD")}</p>
       </div>
       <ul class="leads">
 {COMMITTEE_LEADS}
@@ -464,7 +452,7 @@ def form_page(key, eyebrow, title, lead, side_title, side_html, label, crumb=Tru
 
 IDEA = form_page(
     "idea", "Share your idea", "Share your idea",
-    f"What could the state fix fast? Tell us the problem and your idea for the first 100 days. Your story might be one Helena tells. {ph('Draft copy')}",
+    "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
     "What happens next",
     """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Share your idea")
