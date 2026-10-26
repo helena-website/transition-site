@@ -293,7 +293,7 @@ HOME = f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
         <h1>Let's get to work.</h1>
-        <p class="lead">Helena's transition team is getting ready to make the state work for all Rhode Islanders. Raise your hand to serve or share an idea.</p>
+        <p class="lead">Helena's transition team is getting the state ready to work for all Rhode Islanders. Raise your hand to serve or share an idea.</p>
         <div class="ctas">
           <a class="btn btn-green" href="{{pre}}get-involved/serve/">Serve in the administration</a>
           <a class="btn btn-ghost" href="{{pre}}get-involved/share-an-idea/">Share your idea</a>
