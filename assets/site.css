@@ -144,13 +144,12 @@ section.band.tight .wrap{padding-block:56px}
 .portrait{aspect-ratio:4/5;background:var(--lav);display:grid;place-items:center;text-align:center;color:var(--muted);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:16px}
 @media (max-width:860px){.bio{grid-template-columns:1fr;gap:24px}.portrait{max-width:240px}}
 
-.people{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px;max-width:840px}
 .person{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start}
 .person .portrait{aspect-ratio:1/1;font-size:11px}
 img.portrait{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;padding:0}
 .person h3{font-size:20px}
 .person p{margin:0;color:var(--muted);font-size:14px}
-@media (max-width:980px){.people{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.people{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .person .role{color:var(--navy);font-weight:700}
 .person .email{word-break:break-word}
