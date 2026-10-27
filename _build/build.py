@@ -320,7 +320,7 @@ HOME = f"""  <section class="hero split photo">
 
 
 def leader(name, title, img, email=""):
-    mail = f'\n          <p class="email"><a href="mailto:{email}">{email}</a></p>' if email else ""
+    mail = f'\n          <p class="email"><a href="mailto:{email}">Email</a></p>' if email else ""
     return f"""        <div class="person">
           <img class="portrait" src="{{pre}}assets/img/team/{img}.webp" alt="{name}" width="480" height="480" loading="lazy">
           <h3>{name}</h3>
