@@ -88,7 +88,7 @@ def page(path, title, body, desc="", forms=False):
     <div>
       <h4>Contact</h4>
       <p><a href="mailto:info@helenatransition.com">info@helenatransition.com</a></p>
-      <p>Press: <a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
+      <p><a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
       <p><a href="{pre}invitehelena/">Invite the Governor-Elect</a></p>
       <p>PO Box 6191, Providence, RI 02940</p>
     </div>
