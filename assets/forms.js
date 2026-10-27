@@ -95,9 +95,9 @@
   /* Spanish versions of the forms (pages under es/). Paste each Spanish Fillout form ID here.
      Until an ID is set, the Spanish page shows the English form with a short note in Spanish. */
   var SPANISH = {
-    idea: "",   // Comparta su idea
-    serve: "",  // Servir en la administración
-    event: ""   // Invite a la gobernadora electa
+    idea: "pciMkXz2gZus",   // Comparta su idea
+    serve: "9gZ1dHWWVkus",  // Servir en la administración
+    event: "kr8UyC7Ed6us"   // Invite a la gobernadora electa
   };
   var ES_PENDING = "El formulario en español estará disponible pronto. Mientras tanto, puede usar el formulario en inglés.";
 
