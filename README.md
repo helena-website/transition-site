@@ -65,7 +65,7 @@ The sample release (`2026-11-04-sample-release.txt`) has `placeholder: yes`, whi
 
 ## Spanish version
 - English is the default, at the site root. Spanish copies of the main pages are at `es/` (e.g. `es/team/`). The **EN | ES** toggle in the header switches to the same page in the other language.
-- Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite. **English only:** News and press releases, the Privacy Policy, the plan PDFs, and the unlinked boards page. On those pages, ES goes to the Spanish home page.
+- Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite, and News (Spanish header and footer; the list of press releases stays in English). **English only:** the press releases themselves, the Privacy Policy, the plan PDFs, and the unlinked boards page. On those pages, ES goes to the Spanish home page.
 - **All Spanish text is in `_build/es.py`.** Each entry matches an English entry in `EN` in `_build/build.py`. When English copy changes, update the Spanish entry too. The build stops if an entry is missing.
 - The Spanish is a machine-translated draft pending review by a native speaker.
 - **Spanish forms:** paste each Spanish Fillout form ID into `SPANISH` in `assets/forms.js`. Until an ID is set, the Spanish page shows the English form with a note in Spanish.

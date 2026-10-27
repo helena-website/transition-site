@@ -25,7 +25,7 @@ from es import ES  # noqa: E402  Spanish text
 
 # Pages that also have a Spanish version at es/<path>. Every other page is English only.
 ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
-            "get-involved/share-an-idea/", "invitehelena/"]
+            "get-involved/share-an-idea/", "invitehelena/", "news/"]
 
 # ---------- English text ----------
 EN = {
@@ -129,6 +129,13 @@ EN = {
     "plans_lead": "Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor.",
     "plans_note": "",
     "plans_btn": "Read the plan",
+
+    "news_title": "News",
+    "news_desc": "News from the Helena Foulkes transition.",
+    "news_eyebrow": "News",
+    "news_h1": "Transition news",
+    "news_lead": "Press releases and announcements from the transition.",
+    "news_empty": "No press releases yet.",
 }
 TEXT = {"en": EN, "es": ES}
 _missing = sorted(k for k in EN if k not in ES and k != "get_involved_menu")
@@ -163,7 +170,8 @@ def page(path, title, body, desc="", forms=False, lang="en"):
     home = pre + ("es/" if lang == "es" else "")  # root of this language
     has_es = path in ES_PAGES
     en_href = pre + path
-    es_href = pre + "es/" + (path if has_es else "")
+    # English-only pages: ES goes to the Spanish news page from a press release, otherwise the Spanish home page.
+    es_href = pre + "es/" + (path if has_es else ("news/" if path.startswith("news/") else ""))
 
     def link(p):
         """Link to page p in this language, or to the English page when there's no Spanish one."""
@@ -333,13 +341,13 @@ def load_news():
 NEWS = load_news()
 
 
-def news_list(items):
+def news_list(items, empty="No press releases yet."):
     if not items:
-        return '      <li><div></div><div><p>No press releases yet.</p></div></li>'
+        return f'      <li><div></div><div><p>{empty}</p></div></li>'
     out = []
     for i in items:
         tag = f' {ph("Sample")}' if i["sample"] else ""
-        out.append(f"""      <li><div class="when">{_fmt_date(i["date"])}</div><div><span class="tag">{_esc(i["type"])}</span><h3><a href="{i["slug"]}/">{_esc(i["title"])}</a></h3><p>{_esc(i["summary"])}{tag}</p></div></li>""")
+        out.append(f"""      <li><div class="when">{_fmt_date(i["date"])}</div><div><span class="tag">{_esc(i["type"])}</span><h3><a href="{{pre}}news/{i["slug"]}/">{_esc(i["title"])}</a></h3><p>{_esc(i["summary"])}{tag}</p></div></li>""")
     return "\n".join(out)
 
 
@@ -636,18 +644,21 @@ def plans_page(t, lang):
 """
 
 
-NEWS_PAGE = f"""  <section class="hero slim">
+def news_page(t, lang):
+    # The list of press releases is always English (lang="en" on Spanish pages).
+    list_lang = ' lang="en"' if lang == "es" else ""
+    return f"""  <section class="hero slim">
     <div class="wrap">
-      <p class="eyebrow">News</p>
-      <h1>Transition news</h1>
-      <p class="lead">Press releases and announcements from the transition.</p>
+      <p class="eyebrow">{t["news_eyebrow"]}</p>
+      <h1>{t["news_h1"]}</h1>
+      <p class="lead">{t["news_lead"]}</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
-      <ul class="news">
-{news_list(NEWS)}
+      <ul class="news"{list_lang}>
+{news_list(NEWS, t["news_empty"])}
       </ul>
     </div>
   </section>
@@ -678,7 +689,6 @@ def redirect(path, target):
 
 
 def build_news():
-    page("news/", "News", NEWS_PAGE, "News from the Helena Foulkes transition.")
     keep = {i["slug"] for i in NEWS}
     for i in NEWS:
         page(f"news/{i['slug']}/", _esc(i["title"]), release_page(i), _esc(i["summary"]))
@@ -699,6 +709,7 @@ def build_lang(lang):
     page("invitehelena/", t["invite_page_title"], invite_page(t, lang), t["invite_desc"], forms=True, lang=lang)
     page("get-involved/serve/", t["serve_page_title"], serve_page(t, lang), t["serve_desc"], forms=True, lang=lang)
     page("plans/", t["plans_title"], plans_page(t, lang), t["plans_desc"], lang=lang)
+    page("news/", t["news_title"], news_page(t, lang), t["news_desc"], lang=lang)
 
 
 if __name__ == "__main__":

@@ -137,4 +137,13 @@ ES = {
         ("Reforma ética", "No debería tener que conocer a alguien",
          "Que la Cámara Estatal trabaje para todos los habitantes de Rhode Island, no solo para los de adentro"),
     ],
+
+    # ---------- News ----------
+    # The list of press releases below the header stays in English.
+    "news_title": "Noticias",
+    "news_desc": "Noticias de la transición de Helena Foulkes.",
+    "news_eyebrow": "Noticias",
+    "news_h1": "Noticias de la transición",
+    "news_lead": "Comunicados de prensa y anuncios de la transición. Los comunicados están disponibles solo en inglés.",
+    "news_empty": "Aún no hay comunicados de prensa.",
 }
