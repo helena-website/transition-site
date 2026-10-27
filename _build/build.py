@@ -6,23 +6,134 @@ Writes static HTML into the repo root. All links are relative, so the site
 works at any address (GitHub Pages staging, or the root of helenafoulkes.com).
 GitHub Pages (Jekyll) does not publish folders starting with "_", so this
 script stays private to the repo.
+
+Languages: English is the default and lives at the site root. Spanish copies of the
+main pages are written under es/ (e.g. es/team/). English text is in EN below;
+Spanish text is in _build/es.py. News, press releases, the privacy policy and the
+plan PDFs are English only.
 """
 import re
 import shutil
+import sys
 from datetime import date as _date
 from html import escape as _esc
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent  # repo root
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from es import ES  # noqa: E402  Spanish text
 
-PROTO = "Sample design for the transition team's review."
+# Pages that also have a Spanish version at es/<path>. Every other page is English only.
+ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
+            "get-involved/share-an-idea/", "invitehelena/"]
 
-NAV = [
-    ("", "Home"),
-    ("team/", "Meet the Team"),
-    ("plans/", "Plans"),
-    ("news/", "News"),
-]
+# ---------- English text ----------
+EN = {
+    "proto_label": "Prototype",
+    "proto": "Sample design for the transition team's review.",
+    "skip": "Skip to content",
+    "logo_aria": "Helena Foulkes Transition home",
+    "logo_alt": "Helena Buonanno Foulkes, Governor-elect",
+    "title_suffix": "Governor-elect Helena Foulkes",
+    "nav_home": "Home",
+    "nav_team": "Meet the Team",
+    "nav_plans": "Plans",
+    "nav_news": "News",
+    "get_involved_btn": "Get involved",
+    "get_involved_menu": "Get Involved",
+    "menu": "Menu",
+    "lang_group": "Language",
+    "contact": "Contact",
+    "follow": "Follow",
+    "invite_link": "Invite the Governor-elect",
+    "built_by": "Built by RI volunteers and funded by Helena Transition",
+    "privacy": "Privacy Policy",
+
+    "serve_title": "Serve in the administration",
+    "serve_card": "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé.",
+    "idea_title": "Share your idea",
+    "idea_card": "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
+
+    "home_desc": "Welcome from the Helena Foulkes transition team.",
+    "home_h1": "Let's get to work.",
+    "home_lead": "Helena's transition team is getting the state ready to work for all Rhode Islanders. Raise your hand to serve or share an idea.",
+    "home_hero_alt": "Governor-elect Helena Foulkes",
+    "home_ways": "Two ways to get involved",
+
+    "team_title": "Team",
+    "team_desc": "Governor-elect Helena Foulkes and the transition leadership team.",
+    "team_eyebrow": "Meet the Team",
+    "team_h1": "The people leading the transition",
+    "team_lead": "The Governor-elect and the leadership team preparing the administration for January.",
+    "team_photo1_alt": "Helena Foulkes with her husband",
+    "team_photo2_alt": "Helena Foulkes talking with a family at a park",
+    "team_bio_eyebrow": "Governor-elect",
+    "team_bio_h2": "Meet Helena",
+    "team_bio": [
+        "Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.",
+        "As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves—even though tobacco brought in $2 billion in revenue—because she believes that protecting people’s health is more important than profits.",
+        "Since coming just short in the 2022 race for governor, Helena has been working hard to improve our state, including partnering with the mayor of Central Falls to improve their public schools and combatting homelessness and domestic violence as a board member and volunteer at Rhode Island non-profits. Helena regularly holds community gatherings at people’s homes to hear directly from Rhode Islanders about their concerns.",
+        "Helena is a compassionate, experienced and effective leader. Now, she’s committed to making life better for every Rhode Islander.",
+    ],
+    "team_leaders_h2": "Transition leadership team",
+    "email_label": "Email",
+    "leaders": [
+        ("Bari Harlam", "Transition Chair"),
+        ("Mayor Maria Rivera", "Transition Chair"),
+        ("David Cicilline", "Transition Chair"),
+        ("Caitlin Molina", "Transition Executive Director"),
+        ("RJ Kermes", "Transition Deputy Director, Operations"),
+    ],
+    "team_committee_h2": "Leadership Transition Committee",
+    "lead_name": "Name",
+    "lead_role": "Current role and organization",
+
+    "gi_title": "Get Involved",
+    "gi_desc": "Serve in the administration, or share an idea for the first 100 days.",
+    "gi_eyebrow": "Get Involved",
+    "gi_h1": "Help build an administration that works",
+    "gi_lead": "Tell us you want to serve, or share an idea for the first 100 days.",
+    "gi_about_eyebrow": "About the transition",
+    "gi_about_h2": "What guides our work",
+    "gi_values": [
+        ("Results first", "Measure success by what changes for Rhode Islanders, not by press releases."),
+        ("Open door", "The best ideas come from people who use state services every day. We want to hear from them."),
+        ("Ready on day one", "Agency reviews, first-year priorities and key appointments in place by January 5."),
+    ],
+    "gi_meet_btn": "Meet the leadership team",
+    "gi_action_eyebrow": "Take action",
+    "gi_action_h2": "Choose how you'd like to help",
+
+    "form_crumb": "Get Involved",
+    "form_next_h2": "What happens next",
+    "form_next": "Our team reviews every submission. We'll be in touch if we'd like to learn more.",
+    "form_loading": "Loading the form. If it doesn't appear, make sure JavaScript is on.",
+    "idea_page_title": "Share Your Idea",
+    "idea_desc": "Share an idea for the first 100 days.",
+    "idea_lead": "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
+    "idea_label": "Share your idea",
+    "serve_page_title": "Serve in the Administration",
+    "serve_desc": "Express interest in serving in the administration.",
+    "serve_lead": "Interested in a role in a state agency or the Governor's Office? Tell us where you'd fit.",
+    "serve_label": "Administration interest",
+    "serve_note": '<strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). It only signals your interest in being considered for a future role.',
+    "invite_page_title": "Invite the Governor-elect",
+    "invite_desc": "Request the Governor-elect for your event.",
+    "invite_lead": "Request the Governor-elect or a member of the transition team for your event.",
+    "invite_label": "Event request",
+
+    "plans_title": "Plans",
+    "plans_desc": "Helena Foulkes's plans for Rhode Island.",
+    "plans_eyebrow": "Plans",
+    "plans_h1": "Helena’s plans for Rhode Island",
+    "plans_lead": "Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor.",
+    "plans_note": "",
+    "plans_btn": "Read the plan",
+}
+TEXT = {"en": EN, "es": ES}
+_missing = sorted(k for k in EN if k not in ES and k != "get_involved_menu")
+if _missing:
+    raise SystemExit(f"_build/es.py is missing these entries: {', '.join(_missing)}")
 
 PH = '<span class="ph">{}</span>'
 
@@ -31,69 +142,105 @@ def ph(text):
     return PH.format(text)
 
 
-def page(path, title, body, desc="", forms=False):
-    depth = path.count("/")
-    pre = "../" * depth
+def lang_switch(lang, en_href, es_href, extra=""):
+    """EN | ES toggle. The current language is highlighted; the other is a link."""
+    if lang == "es":
+        en = f'<a href="{en_href}" lang="en" hreflang="en">EN</a>'
+        es = '<span aria-current="true" lang="es">ES</span>'
+    else:
+        en = '<span aria-current="true" lang="en">EN</span>'
+        es = f'<a href="{es_href}" lang="es" hreflang="es">ES</a>'
+    label = TEXT[lang]["lang_group"]
+    return f'<div class="lang{extra}" role="group" aria-label="{label}">{en}{es}</div>'
+
+
+def page(path, title, body, desc="", forms=False, lang="en"):
+    """Write one page. path is the English path (e.g. "team/"); Spanish pages go to es/<path>."""
+    t = TEXT[lang]
+    out_path = ("es/" + path) if lang == "es" else path
+    depth = out_path.count("/")
+    pre = "../" * depth                       # back to the site root
+    home = pre + ("es/" if lang == "es" else "")  # root of this language
+    has_es = path in ES_PAGES
+    en_href = pre + path
+    es_href = pre + "es/" + (path if has_es else "")
+
+    def link(p):
+        """Link to page p in this language, or to the English page when there's no Spanish one."""
+        return (home if p in ES_PAGES else pre) + p
+
+    nav_items = [("", t["nav_home"]), ("team/", t["nav_team"]), ("plans/", t["nav_plans"]), ("news/", t["nav_news"])]
     nav = []
-    for href, label in NAV:
+    for href, label in nav_items:
         cur = ' aria-current="page"' if href == path or (href and path.startswith(href)) else ""
-        nav.append(f'<a href="{pre}{href}"{cur}>{label}</a>')
+        nav.append(f'<a href="{link(href)}"{cur}>{label}</a>')
     nav_html = "\n      ".join(nav)
     gi_cur = ' aria-current="page"' if path.startswith("get-involved/") else ""
-    menu_html = "\n          ".join(nav + [f'<a href="{pre}get-involved/"{gi_cur}>Get Involved</a>'])
+    gi_menu = t.get("get_involved_menu", t["get_involved_btn"])
+    menu_html = "\n          ".join(nav + [f'<a href="{link("get-involved/")}"{gi_cur}>{gi_menu}</a>'])
     script = f'\n<script src="{pre}assets/forms.js" defer></script>' if forms else ""
-    full_title = "Governor-elect Helena Foulkes" if not title else f"{title} | Governor-elect Helena Foulkes"
+    full_title = t["title_suffix"] if not title else f"{title} | {t['title_suffix']}"
+    alt = ""
+    if has_es:
+        alt = (f'\n<link rel="alternate" hreflang="en" href="{en_href}">'
+               f'\n<link rel="alternate" hreflang="es" href="{pre}es/{path}">')
+    switch = lang_switch(lang, en_href, es_href)
+    switch_m = lang_switch(lang, en_href, es_href, " lang-m")
     html = f"""<!doctype html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{full_title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">{alt}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;800&family=Montserrat:wght@400;500;700;800&display=swap">
 <link rel="stylesheet" href="{pre}assets/site.css">{script}
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="proto" role="note"><div class="wrap"><b>Prototype</b><span>{PROTO}</span></div></div>
+<a class="skip" href="#main">{t["skip"]}</a>
+<div class="proto" role="note"><div class="wrap"><b>{t["proto_label"]}</b><span>{t["proto"]}</span></div></div>
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="{pre}" aria-label="Helena Foulkes Transition home"><img src="{pre}assets/logo-governor-elect.png" alt="" width="600" height="314"></a>
+    <a class="logo" href="{home}" aria-label="{t["logo_aria"]}"><img src="{pre}assets/logo-governor-elect.png" alt="" width="600" height="314"></a>
     <nav class="links" aria-label="Main">
       {nav_html}
-      <a class="btn btn-green" href="{pre}get-involved/"{gi_cur}>Get involved</a>
+      <a class="btn btn-green" href="{link("get-involved/")}"{gi_cur}>{t["get_involved_btn"]}</a>
+      {switch}
     </nav>
-    <details class="menu">
-      <summary>Menu</summary>
-      <nav class="panel" aria-label="Main">
-          {menu_html}
-      </nav>
-    </details>
+    <div class="top-right">
+      {switch_m}
+      <details class="menu">
+        <summary>{t["menu"]}</summary>
+        <nav class="panel" aria-label="Main">
+            {menu_html}
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
 
 <main id="main">
-{body.replace("{pre}", pre)}
+{body.replace("{home}", home).replace("{pre}", pre)}
 </main>
 
 <footer>
   <div class="wrap">
     <div>
-      <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-elect" width="600" height="314"></a>
+      <a class="logo logo-foot" href="{home}"><img src="{pre}assets/logo-governor-elect.png" alt="{t["logo_alt"]}" width="600" height="314"></a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h4>{t["contact"]}</h4>
       <p><a href="mailto:info@helenatransition.com">info@helenatransition.com</a></p>
       <p><a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
-      <p><a href="{pre}invitehelena/">Invite the Governor-elect</a></p>
+      <p><a href="{link("invitehelena/")}">{t["invite_link"]}</a></p>
       <p>PO Box 6191, Providence, RI 02940</p>
     </div>
     <div>
-      <h4>Follow</h4>
+      <h4>{t["follow"]}</h4>
       <ul>
         <li><a href="https://www.facebook.com/helena4RI" target="_blank" rel="noopener">Facebook</a></li>
         <li><a href="https://www.instagram.com/helenabfoulkes/" target="_blank" rel="noopener">Instagram</a></li>
@@ -101,45 +248,18 @@ def page(path, title, body, desc="", forms=False):
       </ul>
     </div>
     <div class="legal">
-      <p class="paid">Built by RI volunteers and funded by Helena Transition</p>
-      <p><a href="{pre}privacy-policy/">Privacy Policy</a></p>
+      <p class="paid">{t["built_by"]}</p>
+      <p><a href="{pre}privacy-policy/">{t["privacy"]}</a></p>
     </div>
   </div>
 </footer>
 </body>
 </html>
 """
-    out = ROOT / path / "index.html"
+    out = ROOT / out_path / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
     print("wrote", out.relative_to(ROOT.parent))
-
-
-# ---------- shared content ----------
-
-# The two forms promoted across the site (Home, Get Involved, footer). Serve comes first.
-# Invite the Governor-elect (invitehelena/) is linked only from the footer Contact section.
-# Join a Board or Commission (get-involved/boards/) stays live but is not linked anywhere.
-ACTIONS = [
-    ("serve/", "Serve in the administration",
-     "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé.", True),
-    ("share-an-idea/", "Share your idea",
-     "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.", False),
-]
-
-
-def action_cards(pre_to_gi):
-    cards = []
-    for href, title, text, primary in ACTIONS:
-        cls = "card primary" if primary else "card"
-        btn = "btn-green" if primary else "btn-blue"
-        cards.append(f"""      <div class="{cls}">
-        <h3>{title}</h3>
-        <p>{text}</p>
-        <div class="spacer"></div>
-        <a class="btn {btn}" href="{pre_to_gi}{href}">{title}</a>
-      </div>""")
-    return "\n".join(cards)
 
 
 # ---------- news: one file per press release in _build/news/ ----------
@@ -274,33 +394,58 @@ PLANS = [
 ]
 
 
-def plan_cards():
+def plan_cards(t, lang):
     out = []
-    for cat, date, title, desc, url in PLANS:
+    for i, (cat, date, title, desc, url) in enumerate(PLANS):
+        if lang == "es":
+            cat, title, desc = t["plans"][i]
         out.append(f"""      <div class="card">
         <p class="who">{cat}</p>
         <h3>{title}</h3>
         <p>{desc}</p>
         <div class="spacer"></div>
-        <a class="btn btn-blue" href="{url}" target="_blank" rel="noopener">Read the plan</a>
+        <a class="btn btn-blue" href="{{pre}}plans/{url}" target="_blank" rel="noopener"{' hreflang="en"' if lang == "es" else ""}>{t["plans_btn"]}</a>
       </div>""")
     return "\n".join(out)
 
 
-# ---------- pages ----------
+# ---------- shared content ----------
 
-HOME = f"""  <section class="hero split photo">
+# The two forms promoted across the site (Home, Get Involved). Serve comes first.
+# Invite the Governor-elect (invitehelena/) is linked only from the footer Contact section.
+# Join a Board or Commission (get-involved/boards/) stays live but is not linked anywhere, and is English only.
+def action_cards(t):
+    cards = []
+    for href, title, text, primary in (
+        ("serve/", t["serve_title"], t["serve_card"], True),
+        ("share-an-idea/", t["idea_title"], t["idea_card"], False),
+    ):
+        cls = "card primary" if primary else "card"
+        btn = "btn-green" if primary else "btn-blue"
+        cards.append(f"""      <div class="{cls}">
+        <h3>{title}</h3>
+        <p>{text}</p>
+        <div class="spacer"></div>
+        <a class="btn {btn}" href="{{home}}get-involved/{href}">{title}</a>
+      </div>""")
+    return "\n".join(cards)
+
+
+# ---------- pages (each takes t = the text for one language) ----------
+
+def home_page(t):
+    return f"""  <section class="hero split photo">
     <div class="wrap">
       <div>
-        <h1>Let's get to work.</h1>
-        <p class="lead">Helena's transition team is getting the state ready to work for all Rhode Islanders. Raise your hand to serve or share an idea.</p>
+        <h1>{t["home_h1"]}</h1>
+        <p class="lead">{t["home_lead"]}</p>
         <div class="ctas">
-          <a class="btn btn-green" href="{{pre}}get-involved/serve/">Serve in the administration</a>
-          <a class="btn btn-ghost" href="{{pre}}get-involved/share-an-idea/">Share your idea</a>
+          <a class="btn btn-green" href="{{home}}get-involved/serve/">{t["serve_title"]}</a>
+          <a class="btn btn-ghost" href="{{home}}get-involved/share-an-idea/">{t["idea_title"]}</a>
         </div>
       </div>
       <div class="hero-photo">
-        <img src="{{pre}}assets/img/helena-hero.webp" alt="Governor-elect Helena Foulkes" width="665" height="900">
+        <img src="{{pre}}assets/img/helena-hero.webp" alt="{t["home_hero_alt"]}" width="665" height="900">
       </div>
     </div>
   </section>
@@ -308,10 +453,10 @@ HOME = f"""  <section class="hero split photo">
   <section class="band lav">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Two ways to get involved</h2>
+        <h2>{t["home_ways"]}</h2>
       </div>
       <div class="cards">
-{action_cards("{pre}get-involved/")}
+{action_cards(t)}
       </div>
     </div>
   </section>
@@ -319,48 +464,46 @@ HOME = f"""  <section class="hero split photo">
 """
 
 
-def leader(name, title, img, email=""):
-    mail = f'\n          <p class="email"><a href="mailto:{email}">Email</a></p>' if email else ""
-    return f"""        <div class="person">
+# Leadership photos, in the same order as "leaders" in EN and ES. Only Caitlin shows an email.
+LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "david-cicilline", "caitlin-molina", "rj-kermes"]
+LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com"}
+
+
+def leaders(t):
+    out = []
+    for (name, title), img in zip(t["leaders"], LEADER_PHOTOS):
+        email = LEADER_EMAILS.get(img)
+        mail = f'\n          <p class="email"><a href="mailto:{email}">{t["email_label"]}</a></p>' if email else ""
+        out.append(f"""        <div class="person">
           <img class="portrait" src="{{pre}}assets/img/team/{img}.webp" alt="{name}" width="480" height="480" loading="lazy">
           <h3>{name}</h3>
           <p class="role">{title}</p>{mail}
-        </div>"""
+        </div>""")
+    return "\n".join(out)
 
 
-LEADERS = "\n".join([
-    leader("Bari Harlam", "Transition Chair", "bari-harlam"),
-    leader("Mayor Maria Rivera", "Transition Chair", "maria-rivera"),
-    leader("David Cicilline", "Transition Chair", "david-cicilline"),
-    leader("Caitlin Molina", "Transition Executive Director", "caitlin-molina", "caitlin@helenatransition.com"),
-    leader("RJ Kermes", "Transition Deputy Director, Operations", "rj-kermes"),
-])
-
-COMMITTEE_LEADS = "\n".join(
-    """        <li><strong>Name</strong><span>Current role and organization</span></li>"""
-    for _ in range(6))
-
-TEAM = f"""  <section class="hero slim">
+def team_page(t):
+    bio = "\n".join(f"        <p>{p}</p>" for p in t["team_bio"])
+    committee = "\n".join(
+        f"""        <li><strong>{t["lead_name"]}</strong><span>{t["lead_role"]}</span></li>""" for _ in range(6))
+    return f"""  <section class="hero slim">
     <div class="wrap">
-      <p class="eyebrow">Meet the Team</p>
-      <h1>The people leading the transition</h1>
-      <p class="lead">The Governor-elect and the leadership team preparing the administration for January.</p>
+      <p class="eyebrow">{t["team_eyebrow"]}</p>
+      <h1>{t["team_h1"]}</h1>
+      <p class="lead">{t["team_lead"]}</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap bio">
       <div class="bio-photos">
-        <img class="bio-photo" src="{{pre}}assets/img/helena-and-husband.webp" alt="Helena Foulkes with her husband" width="1000" height="620">
-        <img class="bio-photo" src="{{pre}}assets/img/helena-at-park.webp" alt="Helena Foulkes talking with a family at a park" width="1000" height="667">
+        <img class="bio-photo" src="{{pre}}assets/img/helena-and-husband.webp" alt="{t["team_photo1_alt"]}" width="1000" height="620">
+        <img class="bio-photo" src="{{pre}}assets/img/helena-at-park.webp" alt="{t["team_photo2_alt"]}" width="1000" height="667">
       </div>
       <div class="prose">
-        <p class="eyebrow" style="color:var(--green)">Governor-elect</p>
-        <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Meet Helena</h2>
-        <p>Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.</p>
-        <p>As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves\u2014even though tobacco brought in $2 billion in revenue\u2014because she believes that protecting people\u2019s health is more important than profits.</p>
-        <p>Since coming just short in the 2022 race for governor, Helena has been working hard to improve our state, including partnering with the mayor of Central Falls to improve their public schools and combatting homelessness and domestic violence as a board member and volunteer at Rhode Island non-profits. Helena regularly holds community gatherings at people\u2019s homes to hear directly from Rhode Islanders about their concerns.</p>
-        <p>Helena is a compassionate, experienced and effective leader. Now, she\u2019s committed to making life better for every Rhode Islander.</p>
+        <p class="eyebrow" style="color:var(--green)">{t["team_bio_eyebrow"]}</p>
+        <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">{t["team_bio_h2"]}</h2>
+{bio}
       </div>
     </div>
   </section>
@@ -368,10 +511,10 @@ TEAM = f"""  <section class="hero slim">
   <section class="band soft">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Transition leadership team</h2>
+        <h2>{t["team_leaders_h2"]}</h2>
       </div>
       <div class="people">
-{LEADERS}
+{leaders(t)}
       </div>
     </div>
   </section>
@@ -379,54 +522,55 @@ TEAM = f"""  <section class="hero slim">
   <section class="band">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Leadership Transition Committee</h2>
+        <h2>{t["team_committee_h2"]}</h2>
       </div>
       <ul class="leads">
-{COMMITTEE_LEADS}
+{committee}
       </ul>
     </div>
   </section>
 """
 
-GET_INVOLVED = f"""  <section class="hero slim">
+
+def get_involved_page(t):
+    values = "\n".join(f"        <li><h3>{h}</h3><p>{p}</p></li>" for h, p in t["gi_values"])
+    return f"""  <section class="hero slim">
     <div class="wrap">
-      <p class="eyebrow">Get Involved</p>
-      <h1>Help build an administration that works</h1>
-      <p class="lead">Tell us you want to serve, or share an idea for the first 100 days.</p>
+      <p class="eyebrow">{t["gi_eyebrow"]}</p>
+      <h1>{t["gi_h1"]}</h1>
+      <p class="lead">{t["gi_lead"]}</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">About the transition</p>
-        <h2>What guides our work</h2>
+        <p class="eyebrow">{t["gi_about_eyebrow"]}</p>
+        <h2>{t["gi_about_h2"]}</h2>
       </div>
       <ul class="values">
-        <li><h3>Results first</h3><p>Measure success by what changes for Rhode Islanders, not by press releases.</p></li>
-        <li><h3>Open door</h3><p>The best ideas come from people who use state services every day. We want to hear from them.</p></li>
-        <li><h3>Ready on day one</h3><p>Agency reviews, first-year priorities and key appointments in place by January 5.</p></li>
+{values}
       </ul>
-      <p style="margin-top:32px"><a class="btn btn-line" href="{{pre}}team/">Meet the leadership team</a></p>
+      <p style="margin-top:32px"><a class="btn btn-line" href="{{home}}team/">{t["gi_meet_btn"]}</a></p>
     </div>
   </section>
 
   <section class="band lav" id="forms">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Take action</p>
-        <h2>Choose how you'd like to help</h2>
+        <p class="eyebrow">{t["gi_action_eyebrow"]}</p>
+        <h2>{t["gi_action_h2"]}</h2>
       </div>
       <div class="cards">
-{action_cards("")}
+{action_cards(t)}
       </div>
     </div>
   </section>
 """
 
 
-def form_page(key, eyebrow, title, lead, side_title, side_html, label, crumb=True):
-    trail = f'<a href="{{pre}}get-involved/" style="color:inherit">Get Involved</a> / {eyebrow}' if crumb else eyebrow
+def form_page(t, lang, key, eyebrow, title, lead, side_html, label, crumb=True):
+    trail = f'<a href="{{home}}get-involved/" style="color:inherit">{t["form_crumb"]}</a> / {eyebrow}' if crumb else eyebrow
     return f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">{trail}</p>
@@ -438,45 +582,59 @@ def form_page(key, eyebrow, title, lead, side_title, side_html, label, crumb=Tru
   <section class="band lav">
     <div class="wrap form-layout">
       <div class="form-side">
-        <h2 style="font-size:clamp(28px,3.6vw,38px);color:var(--blue);margin-bottom:14px">{side_title}</h2>
+        <h2 style="font-size:clamp(28px,3.6vw,38px);color:var(--blue);margin-bottom:14px">{t["form_next_h2"]}</h2>
         {side_html}
       </div>
-      <div data-form="{key}" data-label="{label}">
-        <p class="note">Loading the form. If it doesn't appear, make sure JavaScript is on.</p>
+      <div data-form="{key}" data-lang="{lang}" data-label="{label}">
+        <p class="note">{t["form_loading"]}</p>
       </div>
     </div>
   </section>
 """
 
 
-IDEA = form_page(
-    "idea", "Share your idea", "Share your idea",
-    "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
-    "What happens next",
-    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
-    "Share your idea")
+def idea_page(t, lang):
+    return form_page(t, lang, "idea", t["idea_title"], t["idea_title"], t["idea_lead"],
+                     f"<p>{t['form_next']}</p>", t["idea_label"])
 
-INVITE = form_page(
-    "event", "Invite the Governor-elect", "Invite the Governor-elect",
-    "Request the Governor-elect or a member of the transition team for your event.",
-    "What happens next",
-    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
-    "Event request", crumb=False)
 
+def invite_page(t, lang):
+    return form_page(t, lang, "event", t["invite_page_title"], t["invite_page_title"], t["invite_lead"],
+                     f"<p>{t['form_next']}</p>", t["invite_label"], crumb=False)
+
+
+def serve_page(t, lang):
+    return form_page(t, lang, "serve", t["serve_title"], t["serve_title"], t["serve_lead"],
+                     f"""<p>{t['form_next']}</p>
+        <p class="note" style="margin-top:20px">{t['serve_note']}</p>""", t["serve_label"])
+
+
+# English only (unlinked).
 BOARDS = form_page(
-    "boards", "Committees", "Join a committee",
+    EN, "en", "boards", "Committees", "Join a committee",
     "Interested in being considered for a committee? Tell us where you'd fit.",
-    "What happens next",
-    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
-    "Committee interest")
+    f"<p>{EN['form_next']}</p>", "Committee interest")
 
-SERVE = form_page(
-    "serve", "Serve in the administration", "Serve in the administration",
-    "Interested in a role in a state agency or the Governor's Office? Tell us where you'd fit.",
-    "What happens next",
-    """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>
-        <p class="note" style="margin-top:20px"><strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). It only signals your interest in being considered for a future role.</p>""",
-    "Administration interest")
+
+def plans_page(t, lang):
+    note = f'\n      <p class="note" style="margin-bottom:28px">{t["plans_note"]}</p>' if t["plans_note"] else ""
+    return f"""  <section class="hero slim">
+    <div class="wrap">
+      <p class="eyebrow">{t["plans_eyebrow"]}</p>
+      <h1>{t["plans_h1"]}</h1>
+      <p class="lead">{t["plans_lead"]}</p>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="wrap">{note}
+      <div class="cards">
+{plan_cards(t, lang)}
+      </div>
+    </div>
+  </section>
+"""
+
 
 NEWS_PAGE = f"""  <section class="hero slim">
     <div class="wrap">
@@ -491,23 +649,6 @@ NEWS_PAGE = f"""  <section class="hero slim">
       <ul class="news">
 {news_list(NEWS)}
       </ul>
-    </div>
-  </section>
-"""
-
-PLANS_PAGE = f"""  <section class="hero slim">
-    <div class="wrap">
-      <p class="eyebrow">Plans</p>
-      <h1>Helena\u2019s plans for Rhode Island</h1>
-      <p class="lead">Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor.</p>
-    </div>
-  </section>
-
-  <section class="band soft">
-    <div class="wrap">
-      <div class="cards">
-{plan_cards()}
-      </div>
     </div>
   </section>
 """
@@ -548,15 +689,22 @@ def build_news():
             print("removed", d.relative_to(ROOT.parent))
 
 
+
+def build_lang(lang):
+    t = TEXT[lang]
+    page("", "", home_page(t), t["home_desc"], lang=lang)
+    page("team/", t["team_title"], team_page(t), t["team_desc"], lang=lang)
+    page("get-involved/", t["gi_title"], get_involved_page(t), t["gi_desc"], lang=lang)
+    page("get-involved/share-an-idea/", t["idea_page_title"], idea_page(t, lang), t["idea_desc"], forms=True, lang=lang)
+    page("invitehelena/", t["invite_page_title"], invite_page(t, lang), t["invite_desc"], forms=True, lang=lang)
+    page("get-involved/serve/", t["serve_page_title"], serve_page(t, lang), t["serve_desc"], forms=True, lang=lang)
+    page("plans/", t["plans_title"], plans_page(t, lang), t["plans_desc"], lang=lang)
+
+
 if __name__ == "__main__":
-    page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
-    page("team/", "Team", TEAM, "Governor-elect Helena Foulkes and the transition leadership team.")
-    page("get-involved/", "Get Involved", GET_INVOLVED, "Serve in the administration, or share an idea for the first 100 days.")
-    page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Share an idea for the first 100 days.", forms=True)
-    page("invitehelena/", "Invite the Governor-elect", INVITE, "Request the Governor-elect for your event.", forms=True)
+    build_lang("en")
+    build_lang("es")
     redirect("get-involved/invite/", "../../invitehelena/")
     page("get-involved/boards/", "Join a Committee", BOARDS, "Express interest in serving on a committee.", forms=True)
-    page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)
-    page("plans/", "Plans", PLANS_PAGE, "Helena Foulkes's plans for Rhode Island.")
     page("privacy-policy/", "Privacy Policy", PRIVACY_PAGE, "Privacy Policy and Terms of Use.")
     build_news()

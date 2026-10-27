@@ -92,6 +92,15 @@
     }
   };
 
+  /* Spanish versions of the forms (pages under es/). Paste each Spanish Fillout form ID here.
+     Until an ID is set, the Spanish page shows the English form with a short note in Spanish. */
+  var SPANISH = {
+    idea: "",   // Comparta su idea
+    serve: "",  // Servir en la administración
+    event: ""   // Invite a la gobernadora electa
+  };
+  var ES_PENDING = "El formulario en español estará disponible pronto. Mientras tanto, puede usar el formulario en inglés.";
+
   function el(tag, attrs, kids) {
     var n = document.createElement(tag);
     for (var k in attrs || {}) {
@@ -149,10 +158,13 @@
     var key = slot.getAttribute("data-form");
     var cfg = FORMS[key];
     if (!cfg) return;
+    var spanish = slot.getAttribute("data-lang") === "es";
+    var formId = (spanish && SPANISH[key]) || cfg.fillout;
 
-    if (cfg.fillout) {
+    if (formId) {
       slot.innerHTML = "";
-      slot.append(el("div", { class: "fillout-slot", style: "width:100%;height:900px", "data-fillout-id": cfg.fillout, "data-fillout-embed-type": "standard", "data-fillout-inherit-parameters": true, "data-fillout-dynamic-resize": true }));
+      if (spanish && !SPANISH[key]) slot.append(el("p", { class: "note", style: "margin-bottom:16px" }, [ES_PENDING]));
+      slot.append(el("div", { class: "fillout-slot", style: "width:100%;height:900px", "data-fillout-id": formId, "data-fillout-embed-type": "standard", "data-fillout-inherit-parameters": true, "data-fillout-dynamic-resize": true }));
       var s = document.createElement("script");
       s.src = "https://server.fillout.com/embed/v1/";
       document.body.append(s);

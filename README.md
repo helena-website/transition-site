@@ -63,6 +63,13 @@ The News page lists releases newest first, by `date`.
 
 The sample release (`2026-11-04-sample-release.txt`) has `placeholder: yes`, which marks it as a sample. Delete that file before launch.
 
+## Spanish version
+- English is the default, at the site root. Spanish copies of the main pages are at `es/` (e.g. `es/team/`). The **EN | ES** toggle in the header switches to the same page in the other language.
+- Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite. **English only:** News and press releases, the Privacy Policy, the plan PDFs, and the unlinked boards page. On those pages, ES goes to the Spanish home page.
+- **All Spanish text is in `_build/es.py`.** Each entry matches an English entry in `EN` in `_build/build.py`. When English copy changes, update the Spanish entry too. The build stops if an entry is missing.
+- The Spanish is a machine-translated draft pending review by a native speaker.
+- **Spanish forms:** paste each Spanish Fillout form ID into `SPANISH` in `assets/forms.js`. Until an ID is set, the Spanish page shows the English form with a note in Spanish.
+
 ## Common changes
 - **Edit text:** change it in `_build/build.py`, then run `python3 _build/build.py` and commit.
 - **Connect a form:** in Fillout, open the form → Share → Embed → Standard, and copy the ID from `data-fillout-id="..."`. Paste it into `fillout: ""` for that form in `assets/forms.js`, then commit.
