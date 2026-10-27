@@ -368,7 +368,6 @@ TEAM = f"""  <section class="hero slim">
   <section class="band soft">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Leadership</p>
         <h2>Transition leadership team</h2>
       </div>
       <div class="people">
@@ -380,8 +379,7 @@ TEAM = f"""  <section class="hero slim">
   <section class="band">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Committees</p>
-        <h2>Committee leads</h2>
+        <h2>Leadership Transition Committee</h2>
       </div>
       <ul class="leads">
 {COMMITTEE_LEADS}
