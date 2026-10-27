@@ -76,16 +76,16 @@ ES = {
 
     # ---------- Get Involved ----------
     "gi_title": "Participe",
-    "gi_desc": "Sirva en la administración o comparta una idea para los primeros 100 días.",
+    "gi_desc": "Díganos que quiere servir o comparta una idea.",
     "gi_eyebrow": "Participe",
     "gi_h1": "Ayude a construir una administración que funcione",
-    "gi_lead": "Díganos que quiere servir o comparta una idea para los primeros 100 días.",
+    "gi_lead": "Díganos que quiere servir o comparta una idea.",
     "gi_about_eyebrow": "Sobre la transición",
     "gi_about_h2": "Lo que guía nuestro trabajo",
     "gi_values": [
-        ("Primero, los resultados", "Medir el éxito por lo que cambia para los habitantes de Rhode Island, no por los comunicados de prensa."),
-        ("Puertas abiertas", "Las mejores ideas vienen de las personas que usan los servicios del estado todos los días. Queremos escucharlas."),
-        ("Listos desde el primer día", "Revisiones de las agencias, prioridades del primer año y nombramientos clave listos para el 5 de enero."),
+        ("Primero, los resultados", "Los residentes ven un cambio real que mejora Rhode Island de forma medible, reduciendo los costos y ampliando las oportunidades para todos."),
+        ("Puertas abiertas", "Las mejores ideas vienen de las personas que usan los servicios del estado todos los días. Queremos saber de usted."),
+        ("Listos desde el primer día", "Revisiones de las agencias, prioridades del primer año y nombramientos clave listos para enero."),
     ],
     "gi_meet_btn": "Conozca al equipo de liderazgo",
     "gi_action_eyebrow": "Actúe",
