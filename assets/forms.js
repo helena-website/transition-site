@@ -53,7 +53,7 @@
         { id: "purpose", label: "Event or meeting purpose", type: "textarea", req: true, full: true },
         { id: "is", label: "This event is", type: "checks", full: true, options: ["Open press event", "Open to the public"], cols: 1 },
         { sec: "Your request" },
-        { id: "requesting", label: "Requesting", type: "checks", req: true, full: true, options: ["Governor-Elect", "A representative from the team"], cols: 1 },
+        { id: "requesting", label: "Requesting", type: "checks", req: true, full: true, options: ["Governor-elect", "A representative from the team"], cols: 1 },
         { id: "role", label: "Role requested", type: "checks", req: true, full: true, options: ["Speaking", "Meet and greet", "Meeting", "Attend", "Video conference"] },
         { sec: "Contact" },
         { id: "cname", label: "Contact name", type: "text", req: true, auto: "name" },

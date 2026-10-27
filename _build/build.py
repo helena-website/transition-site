@@ -42,7 +42,7 @@ def page(path, title, body, desc="", forms=False):
     gi_cur = ' aria-current="page"' if path.startswith("get-involved/") else ""
     menu_html = "\n          ".join(nav + [f'<a href="{pre}get-involved/"{gi_cur}>Get Involved</a>'])
     script = f'\n<script src="{pre}assets/forms.js" defer></script>' if forms else ""
-    full_title = "Helena Foulkes, Governor-Elect" if not title else f"{title} | Helena Foulkes, Governor-Elect"
+    full_title = "Governor-elect Helena Foulkes" if not title else f"{title} | Governor-elect Helena Foulkes"
     html = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -83,13 +83,13 @@ def page(path, title, body, desc="", forms=False):
 <footer>
   <div class="wrap">
     <div>
-      <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-Elect" width="600" height="314"></a>
+      <a class="logo logo-foot" href="{pre}"><img src="{pre}assets/logo-governor-elect.png" alt="Helena Buonanno Foulkes, Governor-elect" width="600" height="314"></a>
     </div>
     <div>
       <h4>Contact</h4>
       <p><a href="mailto:info@helenatransition.com">info@helenatransition.com</a></p>
       <p><a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
-      <p><a href="{pre}invitehelena/">Invite the Governor-Elect</a></p>
+      <p><a href="{pre}invitehelena/">Invite the Governor-elect</a></p>
       <p>PO Box 6191, Providence, RI 02940</p>
     </div>
     <div>
@@ -118,7 +118,7 @@ def page(path, title, body, desc="", forms=False):
 # ---------- shared content ----------
 
 # The two forms promoted across the site (Home, Get Involved, footer). Serve comes first.
-# Invite the Governor-Elect (invitehelena/) is linked only from the footer Contact section.
+# Invite the Governor-elect (invitehelena/) is linked only from the footer Contact section.
 # Join a Board or Commission (get-involved/boards/) stays live but is not linked anywhere.
 ACTIONS = [
     ("serve/", "Serve in the administration",
@@ -300,7 +300,7 @@ HOME = f"""  <section class="hero split photo">
         </div>
       </div>
       <div class="hero-photo">
-        <img src="{{pre}}assets/img/helena-hero.webp" alt="Governor-Elect Helena Foulkes" width="665" height="900">
+        <img src="{{pre}}assets/img/helena-hero.webp" alt="Governor-elect Helena Foulkes" width="665" height="900">
       </div>
     </div>
   </section>
@@ -344,7 +344,7 @@ TEAM = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">Meet the Team</p>
       <h1>The people leading the transition</h1>
-      <p class="lead">The Governor-Elect and the leadership team preparing the administration for January.</p>
+      <p class="lead">The Governor-elect and the leadership team preparing the administration for January.</p>
     </div>
   </section>
 
@@ -355,7 +355,7 @@ TEAM = f"""  <section class="hero slim">
         <img class="bio-photo" src="{{pre}}assets/img/helena-at-park.webp" alt="Helena Foulkes talking with a family at a park" width="1000" height="667">
       </div>
       <div class="prose">
-        <p class="eyebrow" style="color:var(--green)">Governor-Elect</p>
+        <p class="eyebrow" style="color:var(--green)">Governor-elect</p>
         <h2 style="font-size:clamp(32px,4.6vw,48px);color:var(--blue);margin-bottom:18px">Meet Helena</h2>
         <p>Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.</p>
         <p>As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves\u2014even though tobacco brought in $2 billion in revenue\u2014because she believes that protecting people\u2019s health is more important than profits.</p>
@@ -457,8 +457,8 @@ IDEA = form_page(
     "Share your idea")
 
 INVITE = form_page(
-    "event", "Invite the Governor-Elect", "Invite the Governor-Elect",
-    "Request the Governor-Elect or a member of the transition team for your event.",
+    "event", "Invite the Governor-elect", "Invite the Governor-elect",
+    "Request the Governor-elect or a member of the transition team for your event.",
     "What happens next",
     """<p>Our team reviews every submission. We'll be in touch if we'd like to learn more.</p>""",
     "Event request", crumb=False)
@@ -550,10 +550,10 @@ def build_news():
 
 if __name__ == "__main__":
     page("", "", HOME, "Welcome from the Helena Foulkes transition team.")
-    page("team/", "Meet the Team", TEAM, "Governor-Elect Helena Foulkes and the transition leadership team.")
+    page("team/", "Team", TEAM, "Governor-elect Helena Foulkes and the transition leadership team.")
     page("get-involved/", "Get Involved", GET_INVOLVED, "Serve in the administration, or share an idea for the first 100 days.")
     page("get-involved/share-an-idea/", "Share Your Idea", IDEA, "Share an idea for the first 100 days.", forms=True)
-    page("invitehelena/", "Invite the Governor-Elect", INVITE, "Request the Governor-Elect for your event.", forms=True)
+    page("invitehelena/", "Invite the Governor-elect", INVITE, "Request the Governor-elect for your event.", forms=True)
     redirect("get-involved/invite/", "../../invitehelena/")
     page("get-involved/boards/", "Join a Committee", BOARDS, "Express interest in serving on a committee.", forms=True)
     page("get-involved/serve/", "Serve in the Administration", SERVE, "Express interest in serving in the administration.", forms=True)

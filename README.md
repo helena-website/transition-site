@@ -11,7 +11,7 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 |---|---|---|---|
 | `get-involved/serve/` | Serve in the Administration | People (Track: Administration) | Home, Get Involved, footer |
 | `get-involved/share-an-idea/` | Share Your Idea | Ideas | Home, Get Involved, footer |
-| `invitehelena/` | Invite the Governor-Elect | Event Requests | Footer Contact section only |
+| `invitehelena/` | Invite the Governor-elect | Event Requests | Footer Contact section only |
 | `get-involved/boards/` | Join a Committee (Board or Commission) | People (Track: Board or Commission) | Not linked. Live at its address. |
 
 - `get-involved/invite/` is a redirect to `invitehelena/`, so old links still work.
@@ -40,7 +40,7 @@ Each press release is one text file. Its page and its spot on the News page are 
    The name becomes the web address: `news/2026-11-12-cabinet-picks/`.
 3. **Fill in the top lines, then `---`, then the release text.** Copy this:
    ```
-   title: Governor-Elect Foulkes names first cabinet picks
+   title: Governor-elect Foulkes names first cabinet picks
    date: 2026-11-12
    type: Press release
    summary: One sentence that shows on the News page.

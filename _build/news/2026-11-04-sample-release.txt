@@ -1,12 +1,12 @@
-title: Governor-Elect Foulkes announces transition leadership team
+title: Governor-elect Foulkes announces transition leadership team
 date: 2026-11-04
 type: Press release
 summary: The leadership team that will guide the transition through Inauguration Day.
 placeholder: yes
 ---
-PROVIDENCE, RI: Governor-Elect Helena Foulkes today announced the leadership team that will guide her transition through Inauguration Day.
+PROVIDENCE, RI: Governor-elect Helena Foulkes today announced the leadership team that will guide her transition through Inauguration Day.
 
-"Sample quote from the Governor-Elect about getting ready for day one."
+"Sample quote from the Governor-elect about getting ready for day one."
 
 ## About the transition team
 
