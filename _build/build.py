@@ -23,6 +23,9 @@ ROOT = Path(__file__).resolve().parent.parent  # repo root
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from es import ES  # noqa: E402  Spanish text
 
+# Meet the Team: "Leadership Transition Committee" section. Hidden for now; set to True to show it again.
+SHOW_COMMITTEE_LEADS = False
+
 # Pages that also have a Spanish version at es/<path>. Every other page is English only.
 ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
             "get-involved/share-an-idea/", "invitehelena/", "news/"]
@@ -83,6 +86,7 @@ EN = {
         ("David Cicilline", "Transition Co-Chair"),
         ("Caitlin Molina", "Transition Executive Director"),
         ("RJ Kermes", "Transition Deputy Director, Operations"),
+        ("Jon Romano", "Senior Advisor"),
     ],
     "team_committee_h2": "Leadership Transition Committee",
     "lead_name": "Name",
@@ -473,11 +477,13 @@ def home_page(t):
 
 
 # Leadership photos, in the same order as "leaders" in EN and ES. Only Caitlin shows an email.
-LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "david-cicilline", "caitlin-molina", "rj-kermes"]
+LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "david-cicilline", "caitlin-molina", "rj-kermes", "jon-romano"]
 LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com"}
 
 
 def leaders(t):
+    if len(t["leaders"]) != len(LEADER_PHOTOS):
+        raise SystemExit(f'"leaders" has {len(t["leaders"])} people but LEADER_PHOTOS has {len(LEADER_PHOTOS)} photos')
     out = []
     for (name, title), img in zip(t["leaders"], LEADER_PHOTOS):
         email = LEADER_EMAILS.get(img)
@@ -494,6 +500,18 @@ def team_page(t):
     bio = "\n".join(f"        <p>{p}</p>" for p in t["team_bio"])
     committee = "\n".join(
         f"""        <li><strong>{t["lead_name"]}</strong><span>{t["lead_role"]}</span></li>""" for _ in range(6))
+    committee_section = f"""
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>{t["team_committee_h2"]}</h2>
+      </div>
+      <ul class="leads">
+{committee}
+      </ul>
+    </div>
+  </section>
+""" if SHOW_COMMITTEE_LEADS else ""
     return f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">{t["team_eyebrow"]}</p>
@@ -526,18 +544,7 @@ def team_page(t):
       </div>
     </div>
   </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>{t["team_committee_h2"]}</h2>
-      </div>
-      <ul class="leads">
-{committee}
-      </ul>
-    </div>
-  </section>
-"""
+{committee_section}"""
 
 
 def get_involved_page(t):

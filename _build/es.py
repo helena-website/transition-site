@@ -69,6 +69,7 @@ ES = {
         ("David Cicilline", "Copresidente de la Transición"),
         ("Caitlin Molina", "Directora Ejecutiva de la Transición"),
         ("RJ Kermes", "Director Adjunto de Operaciones de la Transición"),
+        ("Jon Romano", "Asesor Principal"),
     ],
     "team_committee_h2": "Comité de Liderazgo de la Transición",
     "lead_name": "Nombre",
