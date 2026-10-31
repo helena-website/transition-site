@@ -53,7 +53,7 @@ EN = {
     "privacy": "Privacy Policy",
 
     "serve_title": "Serve in the administration",
-    "serve_card": "Interested in a role in a state agency or the Governor's Office, or want to volunteer? Submit your interest and resume.",
+    "serve_card": "Interested in a role in a state agency or the Governor's Office, or want to volunteer? Submit your interest.",
     "idea_title": "Share your idea",
     "idea_card": "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
 

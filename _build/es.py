@@ -34,7 +34,7 @@ ES = {
     # ---------- Get Involved cards (Home and Get Involved pages) ----------
     "serve_title": "Servir en la administración",
     # needs native-speaker review (volunteer wording added)
-    "serve_card": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora, o desea hacer trabajo voluntario? Envíe su interés y su currículum.",
+    "serve_card": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora, o desea hacer trabajo voluntario? Envíe su interés.",
     "idea_title": "Comparta su idea",
     "idea_card": "¿Qué podría arreglar el estado rápidamente? Cuéntenos el problema y su idea para ayudar a que Rhode Island funcione mejor para todos.",
 
