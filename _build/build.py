@@ -70,7 +70,7 @@ EN = {
     "team_lead": "The Governor-elect and the leadership team preparing the administration for January.",
     "team_photo1_alt": "Helena Foulkes with her husband",
     "team_photo2_alt": "Helena Foulkes talking with a family at a park",
-    "team_bio_eyebrow": "Governor-elect Helena Buonanno Foulkes",
+    "team_bio_eyebrow": "Governor-elect Helena Foulkes",
     "team_bio_h2": "Meet Helena",
     "team_bio": [
         "Governor-elect Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.",

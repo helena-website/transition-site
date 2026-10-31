@@ -53,7 +53,7 @@ ES = {
     "team_photo1_alt": "Helena Foulkes con su esposo",
     "team_photo2_alt": "Helena Foulkes conversando con una familia en un parque",
     # needs native-speaker review
-    "team_bio_eyebrow": "Gobernadora electa Helena Buonanno Foulkes",
+    "team_bio_eyebrow": "Gobernadora electa Helena Foulkes",
     "team_bio_h2": "Conozca a Helena",
     "team_bio": [
         "La gobernadora electa Helena Buonanno Foulkes es una rhodeislandesa de toda la vida, esposa desde hace 36 años, madre de cuatro hijos, abuela y sobreviviente de cáncer. Durante 25 años ascendió en CVS hasta llegar a ser presidenta de su división minorista.",
