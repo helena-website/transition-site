@@ -33,7 +33,8 @@ ES = {
 
     # ---------- Get Involved cards (Home and Get Involved pages) ----------
     "serve_title": "Servir en la administración",
-    "serve_card": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora? Envíe su interés y su currículum.",
+    # needs native-speaker review (volunteer wording added)
+    "serve_card": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora, o desea hacer trabajo voluntario? Envíe su interés y su currículum.",
     "idea_title": "Comparta su idea",
     "idea_card": "¿Qué podría arreglar el estado rápidamente? Cuéntenos el problema y su idea para ayudar a que Rhode Island funcione mejor para todos.",
 
@@ -106,7 +107,8 @@ ES = {
     "idea_label": "Comparta su idea",
     "serve_page_title": "Servir en la administración",
     "serve_desc": "Exprese su interés en servir en la administración.",
-    "serve_lead": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora? Díganos dónde encajaría.",
+    # needs native-speaker review (volunteer wording added)
+    "serve_lead": "¿Le interesa un puesto en una agencia estatal o en la Oficina de la Gobernadora, o desea hacer trabajo voluntario? Díganos dónde encajaría.",
     "serve_label": "Interés en la administración",
     "serve_note": '<strong>Esto no es una solicitud de empleo.</strong> Enviar este formulario no reemplaza una solicitud formal de empleo con el Estado de Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). Solo indica su interés en ser considerado para un puesto en el futuro.',
     "invite_page_title": "Invite a la gobernadora electa",

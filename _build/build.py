@@ -53,7 +53,7 @@ EN = {
     "privacy": "Privacy Policy",
 
     "serve_title": "Serve in the administration",
-    "serve_card": "Interested in a role in a state agency or the Governor's Office? Submit your interest and resume.",
+    "serve_card": "Interested in a role in a state agency or the Governor's Office, or want to volunteer? Submit your interest and resume.",
     "idea_title": "Share your idea",
     "idea_card": "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
 
@@ -118,7 +118,7 @@ EN = {
     "idea_label": "Share your idea",
     "serve_page_title": "Serve in the Administration",
     "serve_desc": "Express interest in serving in the administration.",
-    "serve_lead": "Interested in a role in a state agency or the Governor's Office? Tell us where you'd fit.",
+    "serve_lead": "Interested in a role in a state agency or the Governor's Office, or want to volunteer? Tell us where you'd fit.",
     "serve_label": "Administration interest",
     "serve_note": '<strong>This is not a job application.</strong> Submitting this form does not replace a formal application for employment with the State of Rhode Island (<a href="https://www.ri.gov/employment/" target="_blank" rel="noopener">www.ri.gov/employment/</a>). It only signals your interest in being considered for a future role.',
     "invite_page_title": "Invite the Governor-elect",
