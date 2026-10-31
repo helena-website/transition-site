@@ -52,12 +52,13 @@ ES = {
     "team_lead": "La gobernadora electa y el equipo de liderazgo que preparan la administración para enero.",
     "team_photo1_alt": "Helena Foulkes con su esposo",
     "team_photo2_alt": "Helena Foulkes conversando con una familia en un parque",
-    "team_bio_eyebrow": "Gobernadora electa",
+    # needs native-speaker review
+    "team_bio_eyebrow": "Gobernadora electa Helena Buonanno Foulkes",
     "team_bio_h2": "Conozca a Helena",
     "team_bio": [
         "La gobernadora electa Helena Buonanno Foulkes es una rhodeislandesa de toda la vida, esposa desde hace 36 años, madre de cuatro hijos, abuela y sobreviviente de cáncer. Durante 25 años ascendió en CVS hasta llegar a ser presidenta de su división minorista.",
         "Como presidenta de CVS Pharmacy, Helena trabajó para que los consumidores pagaran los precios más bajos posibles por sus medicamentos recetados y retiró los productos de tabaco de los estantes —aunque el tabaco generaba $2 mil millones en ingresos— porque cree que proteger la salud de las personas es más importante que las ganancias.",
-        "Helena ha trabajado arduamente para mejorar nuestro estado: se asoció con la alcaldía de Central Falls para mejorar sus escuelas públicas, ha combatido la falta de vivienda y la violencia doméstica como miembro de juntas directivas y voluntaria en organizaciones sin fines de lucro de Rhode Island, y se reúne con frecuencia con los habitantes de Rhode Island para escuchar sus preocupaciones.",
+        "Helena ha trabajado arduamente para mejorar nuestro estado: se asoció con la alcaldía de Central Falls para mejorar sus escuelas públicas, ha combatido la falta de vivienda y la violencia doméstica como miembro de juntas directivas y voluntaria en organizaciones sin fines de lucro, y se reúne con frecuencia con los habitantes de Rhode Island para escuchar sus preocupaciones.",
         "Como gobernadora, Helena seguirá comprometida a mejorar la vida de cada habitante de Rhode Island.",
     ],
     "team_leaders_h2": "Equipo de liderazgo de la transición",
@@ -85,7 +86,8 @@ ES = {
     "gi_about_h2": "Lo que guía nuestro trabajo",
     "gi_values": [
         ("Primero, los resultados", "Los residentes ven un cambio real que mejora Rhode Island de forma medible, reduciendo los costos y ampliando las oportunidades para todos."),
-        ("Puertas abiertas", "Las mejores ideas vienen de las personas que usan los servicios del estado todos los días. Queremos saber de usted."),
+        # needs native-speaker review (Open door text updated)
+        ("Puertas abiertas", "Las mejores ideas vienen de los residentes de Rhode Island y de las personas que usan los servicios del estado todos los días. Queremos saber de usted."),
         ("Listos desde el primer día", "Revisiones de las agencias, prioridades del primer año y nombramientos clave listos para enero."),
     ],
     "gi_meet_btn": "Conozca al equipo de liderazgo",
@@ -95,7 +97,8 @@ ES = {
     # ---------- Form pages ----------
     "form_crumb": "Participe",
     "form_next_h2": "Qué sigue",
-    "form_next": "Nuestro equipo revisa cada solicitud. Nos pondremos en contacto si queremos saber más.",
+    # needs native-speaker review
+    "form_next": "Nuestro equipo revisa cada solicitud. Nos pondremos en contacto para saber más.",
     "form_loading": "Cargando el formulario. Si no aparece, asegúrese de que JavaScript esté activado.",
     "idea_page_title": "Comparta su idea",
     "idea_desc": "Comparta una idea para los primeros 100 días.",

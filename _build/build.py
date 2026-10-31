@@ -53,7 +53,7 @@ EN = {
     "privacy": "Privacy Policy",
 
     "serve_title": "Serve in the administration",
-    "serve_card": "Interested in a role in a state agency or the Governor's Office? Submit your interest and résumé.",
+    "serve_card": "Interested in a role in a state agency or the Governor's Office? Submit your interest and resume.",
     "idea_title": "Share your idea",
     "idea_card": "What could the state fix quickly? Tell us the problem and your idea to help Rhode Island work better for everyone.",
 
@@ -70,12 +70,12 @@ EN = {
     "team_lead": "The Governor-elect and the leadership team preparing the administration for January.",
     "team_photo1_alt": "Helena Foulkes with her husband",
     "team_photo2_alt": "Helena Foulkes talking with a family at a park",
-    "team_bio_eyebrow": "Governor-elect",
+    "team_bio_eyebrow": "Governor-elect Helena Buonanno Foulkes",
     "team_bio_h2": "Meet Helena",
     "team_bio": [
         "Governor-elect Helena Buonanno Foulkes is a lifelong Rhode Islander, wife of 36 years, mother of four, grandmother, and cancer survivor who rose through the ranks of CVS over 25 years to become president of its retail division.",
         "As President of CVS pharmacy, Helena worked to ensure that consumers got the lowest possible prescription drug prices and removed tobacco products from the shelves—even though tobacco brought in $2 billion in revenue—because she believes that protecting people’s health is more important than profits.",
-        "Helena has been working hard to improve our state, partnering with the mayor of Central Falls to improve their public schools, combatting homelessness and domestic violence as a board member and volunteer at Rhode Island non-profits, and meeting regularly with Rhode Islanders about their concerns.",
+        "Helena has been working hard to improve our state, partnering with the mayor of Central Falls to improve their public schools, combatting homelessness and domestic violence as a board member and volunteer at non-profits, and meeting regularly with Rhode Islanders about their concerns.",
         "As Governor, Helena will remain committed to making life better for every Rhode Islander.",
     ],
     "team_leaders_h2": "Transition leadership team",
@@ -101,7 +101,7 @@ EN = {
     "gi_about_h2": "What guides our work",
     "gi_values": [
         ("Results first", "Residents see real change that measurably improves Rhode Island, lowering costs and expanding opportunity for everyone."),
-        ("Open door", "The best ideas come from people who use state services every day. We want to hear from you."),
+        ("Open door", "The best ideas come from the residents of Rhode Island and the people who use state services every day. We want to hear from you."),
         ("Ready on day one", "Agency reviews, first-year priorities and key appointments in place by January."),
     ],
     "gi_meet_btn": "Meet the leadership team",
@@ -110,7 +110,7 @@ EN = {
 
     "form_crumb": "Get Involved",
     "form_next_h2": "What happens next",
-    "form_next": "Our team reviews every submission. We'll be in touch if we'd like to learn more.",
+    "form_next": "Our team reviews every submission. We'll be in touch to learn more.",
     "form_loading": "Loading the form. If it doesn't appear, make sure JavaScript is on.",
     "idea_page_title": "Share Your Idea",
     "idea_desc": "Share an idea for the first 100 days.",
@@ -130,14 +130,14 @@ EN = {
     "plans_desc": "Helena Foulkes's plans for Rhode Island.",
     "plans_eyebrow": "Plans",
     "plans_h1": "Helena’s plans for Rhode Island",
-    "plans_lead": "Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as governor.",
+    "plans_lead": "Helena ran a policy-focused campaign on getting things done for Rhode Islanders and improving their lives. These are the plans she will work to implement as Governor.",
     "plans_note": "",
     "plans_btn": "Read the plan",
 
     "news_title": "News",
     "news_desc": "News from the Helena Foulkes transition.",
     "news_eyebrow": "News",
-    "news_h1": "Transition news",
+    "news_h1": "Transition News",
     "news_lead": "Press releases and announcements from the transition.",
     "news_empty": "No press releases yet.",
 }
