@@ -335,7 +335,6 @@ def load_news():
         items.append({
             "slug": slug, "date": d, "title": meta["title"], "summary": meta["summary"],
             "type": meta.get("type", "Press release"),
-            "sample": meta.get("placeholder", "").lower() in ("yes", "true"),
             "body": body.lstrip("-").strip(),
         })
     items.sort(key=lambda i: (i["date"], i["slug"]), reverse=True)
@@ -350,13 +349,11 @@ def news_list(items, empty="No press releases yet."):
         return f'      <li><div></div><div><p>{empty}</p></div></li>'
     out = []
     for i in items:
-        tag = f' {ph("Sample")}' if i["sample"] else ""
-        out.append(f"""      <li><div class="when">{_fmt_date(i["date"])}</div><div><span class="tag">{_esc(i["type"])}</span><h3><a href="{{pre}}news/{i["slug"]}/">{_esc(i["title"])}</a></h3><p>{_esc(i["summary"])}{tag}</p></div></li>""")
+        out.append(f"""      <li><div class="when">{_fmt_date(i["date"])}</div><div><span class="tag">{_esc(i["type"])}</span><h3><a href="{{pre}}news/{i["slug"]}/">{_esc(i["title"])}</a></h3><p>{_esc(i["summary"])}</p></div></li>""")
     return "\n".join(out)
 
 
 def release_page(i):
-    note = f'\n        <p class="note warn">Sample press release. Placeholder text, not a real announcement.</p>' if i["sample"] else ""
     return f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow"><a href="{{pre}}news/" style="color:inherit">News</a> / {_esc(i["type"])}</p>
@@ -367,7 +364,7 @@ def release_page(i):
 
   <section class="band">
     <div class="wrap">
-      <div class="prose release">{note}
+      <div class="prose release">
         {_body_html(i["body"])}
         <p class="release-back"><a href="{{pre}}news/">&larr; All news</a></p>
       </div>

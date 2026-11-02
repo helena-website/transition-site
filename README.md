@@ -61,8 +61,6 @@ Each press release is one text file. Its page and its spot on the News page are 
 To fix a release, edit its file and rebuild. To take one down, delete its file and rebuild; its page is removed too.
 The News page lists releases newest first, by `date`.
 
-The sample release (`2026-11-04-sample-release.txt`) has `placeholder: yes`, which marks it as a sample. Delete that file before launch.
-
 ## Spanish version
 - English is the default, at the site root. Spanish copies of the main pages are at `es/` (e.g. `es/team/`). The **EN | ES** toggle in the header switches to the same page in the other language.
 - Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite, and News (Spanish header and footer; the list of press releases stays in English). **English only:** the press releases themselves, the Privacy Policy, the plan PDFs, and the unlinked boards page. On those pages, ES goes to the Spanish home page.
@@ -83,6 +81,6 @@ The sample release (`2026-11-04-sample-release.txt`) has `placeholder: yes`, whi
   - Remove the "Prototype" banner, set in `PROTO` in `_build/build.py`.
   - Remove the `noindex` meta tag in `_build/build.py`.
   - Delete `robots.txt`, or change it to allow crawling.
-  - Replace every yellow "placeholder" tag with final copy, and delete the sample press release.
+  - Replace every yellow "placeholder" tag with final copy.
   - Update the privacy policy (`_build/privacy.html`, copied from helenafoulkes.com/privacy-policy on Oct 22, 2026, effective 9/5/2025). It is with counsel for an update.
   - Confirm the footer line "Built by RI volunteers and funded by Helena Transition" with counsel.
