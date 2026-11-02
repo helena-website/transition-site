@@ -68,10 +68,10 @@ ES = {
     "leaders": [
         ("Bari Harlam", "Copresidenta de la Transición"),
         ("Alcaldesa Maria Rivera", "Copresidenta de la Transición"),
-        ("David Cicilline", "Copresidente de la Transición"),
         ("Caitlin Molina", "Directora Ejecutiva de la Transición"),
         ("RJ Kermes", "Director Adjunto de Operaciones de la Transición"),
         ("Jon Romano", "Asesor Principal"),
+        ("Jon Carvalho", "Líder de Comunicaciones"),
     ],
     "team_committee_h2": "Comité de Liderazgo de la Transición",
     "lead_name": "Nombre",

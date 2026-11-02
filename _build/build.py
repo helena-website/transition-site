@@ -83,10 +83,10 @@ EN = {
     "leaders": [
         ("Bari Harlam", "Transition Co-Chair"),
         ("Mayor Maria Rivera", "Transition Co-Chair"),
-        ("David Cicilline", "Transition Co-Chair"),
         ("Caitlin Molina", "Transition Executive Director"),
         ("RJ Kermes", "Transition Deputy Director, Operations"),
         ("Jon Romano", "Senior Advisor"),
+        ("Jon Carvalho", "Communications Lead"),
     ],
     "team_committee_h2": "Leadership Transition Committee",
     "lead_name": "Name",
@@ -477,8 +477,10 @@ def home_page(t):
 
 
 # Leadership photos, in the same order as "leaders" in EN and ES. Only Caitlin shows an email.
-LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "david-cicilline", "caitlin-molina", "rj-kermes", "jon-romano"]
+LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "caitlin-molina", "rj-kermes", "jon-romano", "jon-carvalho"]
 LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com"}
+# Left out of the built pages until they're announced. To bring someone back, remove their photo name here and rebuild.
+LEADERS_HIDDEN = {"bari-harlam", "maria-rivera"}
 
 
 def leaders(t):
@@ -486,6 +488,8 @@ def leaders(t):
         raise SystemExit(f'"leaders" has {len(t["leaders"])} people but LEADER_PHOTOS has {len(LEADER_PHOTOS)} photos')
     out = []
     for (name, title), img in zip(t["leaders"], LEADER_PHOTOS):
+        if img in LEADERS_HIDDEN:
+            continue
         email = LEADER_EMAILS.get(img)
         mail = f'\n          <p class="email"><a href="mailto:{email}">{t["email_label"]}</a></p>' if email else ""
         out.append(f"""        <div class="person">
