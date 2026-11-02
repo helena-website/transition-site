@@ -86,7 +86,7 @@ EN = {
         ("Caitlin Molina", "Transition Executive Director"),
         ("RJ Kermes", "Transition Deputy Director, Operations"),
         ("Jon Romano", "Senior Advisor"),
-        ("Jon Carvalho", "Communications Lead"),
+        ("Jon Carvalho", "Transition Communications Director"),
     ],
     "team_committee_h2": "Leadership Transition Committee",
     "lead_name": "Name",
@@ -473,9 +473,9 @@ def home_page(t):
 """
 
 
-# Leadership photos, in the same order as "leaders" in EN and ES. Only Caitlin shows an email.
+# Leadership photos, in the same order as "leaders" in EN and ES. Only people in LEADER_EMAILS show an email.
 LEADER_PHOTOS = ["bari-harlam", "maria-rivera", "caitlin-molina", "rj-kermes", "jon-romano", "jon-carvalho"]
-LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com"}
+LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "jon-carvalho": "press@helenatransition.com"}
 # Left out of the built pages until they're announced. To bring someone back, remove their photo name here and rebuild.
 LEADERS_HIDDEN = {"bari-harlam", "maria-rivera"}
 
