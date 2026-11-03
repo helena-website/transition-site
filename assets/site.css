@@ -60,7 +60,8 @@ nav.links .lang a:hover{background:rgba(255,255,255,.15);text-decoration:none}
 .legal-text h2{font-size:clamp(28px,3.4vw,36px);color:var(--blue);margin:48px 0 14px}
 .legal-text h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:19px;line-height:1.35;margin:32px 0 10px;color:var(--navy)}
 .legal-text p,.legal-text li{font-size:15.5px;color:var(--navy)}
-.legal-text ul{padding-left:22px;display:grid;gap:8px;margin:0 0 1em}
+.legal-text ul{padding-left:22px;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:0 0 1em}
+.legal-text li{overflow-wrap:anywhere}
 .legal-text a{word-break:break-word}
 
 /* buttons */

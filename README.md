@@ -77,10 +77,4 @@ The News page lists releases newest first, by `date`.
 - **Going live**, after approval. The plan is helenatransition.com. Pick one:
   1. **Point the domain at GitHub Pages.** Add a `CNAME` file containing the domain. Change only the website's DNS records (A/AAAA/CNAME for the root and `www`), as GitHub's custom-domain docs describe. **Do not touch MX or other email records.**
   2. **Another host serves these files.** Upload everything except `_build/` to the web root.
-- **Before launch:**
-  - Remove the "Prototype" banner, set in `PROTO` in `_build/build.py`.
-  - Remove the `noindex` meta tag in `_build/build.py`.
-  - Delete `robots.txt`, or change it to allow crawling.
-  - Replace every yellow "placeholder" tag with final copy.
-  - Update the privacy policy (`_build/privacy.html`, copied from helenafoulkes.com/privacy-policy on Oct 22, 2026, effective 9/5/2025). It is with counsel for an update.
-  - Confirm the footer line "Built by RI volunteers and funded by Helena Transition" with counsel.
+- **Live** on www.helenatransition.com through GitHub Pages. Settings → Pages holds the custom domain and keeps the `CNAME` file in this repo. Don't delete it.
