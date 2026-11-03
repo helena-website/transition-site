@@ -64,8 +64,6 @@ ES = {
     "email_label": "Correo electrónico",
     # Leadership names and titles, in the same order as LEADERS in build.py.
     "leaders": [
-        ("Bari Harlam", "Copresidenta de la Transición"),
-        ("Alcaldesa Maria Rivera", "Copresidenta de la Transición"),
         ("Caitlin Molina", "Directora Ejecutiva de la Transición"),
         ("RJ Kermes", "Director Adjunto de Operaciones de la Transición"),
         ("Jon Romano", "Asesor Principal"),
