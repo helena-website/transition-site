@@ -1,4 +1,4 @@
-/* Helena Foulkes transition site (prototype).
+/* Helena Foulkes transition site.
    Campaign look: blue bands, navy text, green accent, square corners.
    Headings: Barlow Semi Condensed stands in for the campaign's DIN 2014. Body: Montserrat. */
 :root{
@@ -21,10 +21,6 @@ a{color:var(--blue)}
 :focus-visible{outline:3px solid var(--green);outline-offset:2px}
 .skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:16px;z-index:99;background:var(--white);padding:8px 12px}
 
-/* prototype notice */
-.proto{background:var(--warn-bg);color:var(--warn-fg);font-size:13px;font-weight:500}
-.proto .wrap{padding-block:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.proto b{font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:11px;border:1.5px solid currentColor;padding:1px 6px}
 .ph{background:var(--warn-bg);color:var(--warn-fg);font-size:.82em;font-weight:700;padding:1px 6px;white-space:nowrap}
 
 /* header */

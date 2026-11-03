@@ -1,7 +1,7 @@
 # Helena Foulkes Transition website
 
 Static site for the Helena Foulkes transition: Home, Meet the Team, Plans, Get Involved and News.
-Owned by the `helena-website` GitHub organization. **Prototype: not public until the transition team approves it.**
+Owned by the `helena-website` GitHub organization. Live at www.helenatransition.com.
 
 ## How it works
 - Plain HTML, CSS and JavaScript. No framework, no server, nothing to install.
@@ -29,7 +29,7 @@ Owned by the `helena-website` GitHub organization. **Prototype: not public until
 | `_build/privacy.html` | Privacy policy and terms text, published at `privacy-policy/`. |
 | `assets/forms.js` | Form previews, and the Fillout form IDs (`fillout: ""` per form). |
 | `index.html`, `team/`, `get-involved/`, `invitehelena/`, `news/` | Generated pages. Don't edit by hand; rerun the build. |
-| `robots.txt` | Blocks search engines while this is a prototype. |
+| `robots.txt` | Allows search engines. |
 
 ## How to post a press release
 Each press release is one text file. Its page and its spot on the News page are made from that file.

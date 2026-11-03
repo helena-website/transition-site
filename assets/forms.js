@@ -1,4 +1,4 @@
-/* Intake forms for the transition site (prototype).
+/* Intake forms for the transition site.
    Each form below mirrors a Notion database (Ideas, Event Requests, People).
    To go live: build the form in Fillout from that Notion database (see the
    "Setup: Fillout forms checklist" page in Notion), then paste the Fillout form ID

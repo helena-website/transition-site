@@ -12,8 +12,6 @@ News, press releases, the privacy policy and the plan PDFs stay in English only.
 
 ES = {
     # ---------- every page: banner, header, footer ----------
-    "proto_label": "Prototipo",
-    "proto": "Diseño de muestra para la revisión del equipo de transición.",
     "skip": "Saltar al contenido",
     "logo_aria": "Inicio de la transición de Helena Foulkes",
     "logo_alt": "Helena Buonanno Foulkes, gobernadora electa",

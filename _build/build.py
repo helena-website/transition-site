@@ -32,8 +32,6 @@ ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
 
 # ---------- English text ----------
 EN = {
-    "proto_label": "Prototype",
-    "proto": "Sample design for the transition team's review.",
     "skip": "Skip to content",
     "logo_aria": "Helena Foulkes Transition home",
     "logo_alt": "Helena Buonanno Foulkes, Governor-elect",
@@ -205,7 +203,7 @@ def page(path, title, body, desc="", forms=False, lang="en"):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{full_title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex, nofollow">{alt}
+{alt}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;800&family=Montserrat:wght@400;500;700;800&display=swap">
@@ -213,7 +211,6 @@ def page(path, title, body, desc="", forms=False, lang="en"):
 </head>
 <body>
 <a class="skip" href="#main">{t["skip"]}</a>
-<div class="proto" role="note"><div class="wrap"><b>{t["proto_label"]}</b><span>{t["proto"]}</span></div></div>
 
 <header class="top">
   <div class="wrap">
