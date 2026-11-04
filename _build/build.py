@@ -470,7 +470,7 @@ def home_page(t):
 
 # Leadership photos, in the same order as "leaders" in EN and ES. Only people in LEADER_EMAILS show an email.
 LEADER_PHOTOS = ["caitlin-molina", "rj-kermes", "jon-romano", "jon-carvalho"]
-LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "jon-carvalho": "press@helenatransition.com"}
+LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "rj-kermes": "rj@helenatransition.com", "jon-romano": "romano@helenatransition.com", "jon-carvalho": "press@helenatransition.com"}
 # Left out of the built pages until they're announced. To bring someone back, remove their photo name here and rebuild.
 LEADERS_HIDDEN = set()
 
