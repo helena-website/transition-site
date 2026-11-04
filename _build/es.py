@@ -26,7 +26,7 @@ ES = {
     "contact": "Contacto",
     "follow": "Síganos",
     "invite_link": "Invite a la gobernadora electa",
-    "built_by": "Hecho por voluntarios de RI y financiado por Helena Transition",
+    "built_by": "Hecho por voluntarios de RI",
     "privacy": "Política de privacidad (en inglés)",
 
     # ---------- Get Involved cards (Home and Get Involved pages) ----------

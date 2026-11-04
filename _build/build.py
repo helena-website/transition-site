@@ -47,7 +47,7 @@ EN = {
     "contact": "Contact",
     "follow": "Follow",
     "invite_link": "Invite the Governor-elect",
-    "built_by": "Built by RI volunteers and funded by Helena Transition",
+    "built_by": "Built by RI volunteers",
     "privacy": "Privacy Policy",
 
     "serve_title": "Serve in the administration",
