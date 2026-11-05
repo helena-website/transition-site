@@ -12,7 +12,6 @@ Owned by the `helena-website` GitHub organization. Live at www.helenatransition.
 | `get-involved/serve/` | Serve in the Administration | People (Track: Administration) | Home, Get Involved, footer |
 | `get-involved/share-an-idea/` | Share Your Idea | Ideas | Home, Get Involved, footer |
 | `invitehelena/` | Invite the Governor-elect | Event Requests | Footer Contact section only |
-| `get-involved/boards/` | Join a Committee (Board or Commission) | People (Track: Board or Commission) | Not linked. Live at its address. |
 
 - `get-involved/invite/` is a redirect to `invitehelena/`, so old links still work.
 - Until a Fillout form ID is set, each form page shows a preview that checks fields but sends nothing.
@@ -63,7 +62,7 @@ The News page lists releases newest first, by `date`.
 
 ## Spanish version
 - English is the default, at the site root. Spanish copies of the main pages are at `es/` (e.g. `es/team/`). The **EN | ES** toggle in the header switches to the same page in the other language.
-- Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite, and News (Spanish header and footer; the list of press releases stays in English). **English only:** the press releases themselves, the Privacy Policy, the plan PDFs, and the unlinked boards page. On those pages, ES goes to the Spanish home page.
+- Spanish pages: Home, Meet the Team, Plans, Get Involved, Serve, Share Your Idea, Invite, and News (Spanish header and footer; the list of press releases stays in English). **English only:** the press releases themselves, the Privacy Policy, and the plan PDFs. On those pages, ES goes to the Spanish home page.
 - **All Spanish text is in `_build/es.py`.** Each entry matches an English entry in `EN` in `_build/build.py`. When English copy changes, update the Spanish entry too. The build stops if an entry is missing.
 - The Spanish is a machine-translated draft pending review by a native speaker.
 - **Spanish forms:** paste each Spanish Fillout form ID into `SPANISH` in `assets/forms.js`. Until an ID is set, the Spanish page shows the English form with a note in Spanish.

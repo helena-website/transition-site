@@ -419,7 +419,6 @@ def plan_cards(t, lang):
 
 # The two forms promoted across the site (Home, Get Involved). Serve comes first.
 # Invite the Governor-elect (invitehelena/) is linked only from the footer Contact section.
-# Join a Board or Commission (get-involved/boards/) stays live but is not linked anywhere, and is English only.
 def action_cards(t):
     cards = []
     for href, title, text, primary in (
@@ -622,13 +621,6 @@ def serve_page(t, lang):
         <p class="note" style="margin-top:20px">{t['serve_note']}</p>""", t["serve_label"])
 
 
-# English only (unlinked).
-BOARDS = form_page(
-    EN, "en", "boards", "Committees", "Join a committee",
-    "Interested in being considered for a committee? Tell us where you'd fit.",
-    f"<p>{EN['form_next']}</p>", "Committee interest")
-
-
 def plans_page(t, lang):
     note = f'\n      <p class="note" style="margin-bottom:28px">{t["plans_note"]}</p>' if t["plans_note"] else ""
     return f"""  <section class="hero slim">
@@ -721,6 +713,5 @@ if __name__ == "__main__":
     build_lang("en")
     build_lang("es")
     redirect("get-involved/invite/", "../../invitehelena/")
-    page("get-involved/boards/", "Join a Committee", BOARDS, "Express interest in serving on a committee.", forms=True)
     page("privacy-policy/", "Privacy Policy", PRIVACY_PAGE, "Privacy Policy and Terms of Use.")
     build_news()
