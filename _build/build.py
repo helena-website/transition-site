@@ -207,6 +207,9 @@ def page(path, title, body, desc="", forms=False, lang="en"):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;800&family=Montserrat:wght@400;500;700;800&display=swap">
+<link rel="icon" type="image/png" sizes="32x32" href="{pre}assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{pre}assets/favicon-16.png">
+<link rel="apple-touch-icon" href="{pre}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="{pre}assets/site.css">{script}
 </head>
 <body>
