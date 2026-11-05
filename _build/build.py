@@ -249,7 +249,6 @@ def page(path, title, body, desc="", forms=False, lang="en"):
       <p><a href="mailto:info@helenatransition.com">info@helenatransition.com</a></p>
       <p><a href="mailto:press@helenatransition.com">press@helenatransition.com</a></p>
       <p><a href="{link("invitehelena/")}">{t["invite_link"]}</a></p>
-      <p>PO Box 6191, Providence, RI 02940</p>
     </div>
     <div>
       <h4>{t["follow"]}</h4>
@@ -474,7 +473,7 @@ def home_page(t):
 
 # Leadership photos, in the same order as "leaders" in EN and ES. Only people in LEADER_EMAILS show an email.
 LEADER_PHOTOS = ["caitlin-molina", "rj-kermes", "jon-romano", "jon-carvalho", "elisabeth-wales", "anthony-aquino"]
-LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "rj-kermes": "rj@helenatransition.com", "jon-romano": "romano@helenatransition.com", "jon-carvalho": "press@helenatransition.com", "elisabeth-wales": "elisabeth@helenatransition.com", "anthony-aquino": "anthony@helenatransition.com"}
+LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "rj-kermes": "rj@helenatransition.com", "jon-romano": "romano@helenatransition.com", "jon-carvalho": "jon@helenatransition.com", "elisabeth-wales": "elisabeth@helenatransition.com", "anthony-aquino": "anthony@helenatransition.com"}
 # Left out of the built pages until they're announced. To bring someone back, remove their photo name here and rebuild.
 LEADERS_HIDDEN = set()
 
