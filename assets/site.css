@@ -80,7 +80,7 @@ nav.links .lang a:hover{background:rgba(255,255,255,.15);text-decoration:none}
 .hero.slim .wrap{padding-block:56px 60px}
 .eyebrow{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--green-lt);margin:0 0 16px}
 .hero h1{font-size:clamp(42px,7vw,84px)}
-.hero.slim h1{font-size:clamp(38px,6vw,68px)}
+.hero.slim h1{font-size:clamp(38px,6vw,68px);overflow-wrap:anywhere}
 .hero p.lead{font-size:18px;max-width:36em;margin:22px 0 30px;color:#E6EBF7}
 .hero.slim p.lead{margin-bottom:0}
 .ctas{display:flex;gap:12px;flex-wrap:wrap}
