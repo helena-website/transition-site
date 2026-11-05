@@ -68,6 +68,8 @@ ES = {
         ("RJ Kermes", "Director Adjunto de Operaciones de la Transición"),
         ("Jon Romano", "Asesor Principal"),
         ("Jon Carvalho", "Director de Comunicaciones de la Transición"),
+        ("Elisabeth Wales", "Enlace de Participación Pública"),
+        ("Anthony Aquino", "Enlace de Participación Pública"),
     ],
     "team_committee_h2": "Comité de Liderazgo de la Transición",
     "lead_name": "Nombre",
