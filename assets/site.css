@@ -209,6 +209,11 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .form-msg.ok{background:var(--mint)}
 .form-msg.bad{background:#FBE3E1;color:var(--err)}
 .fillout-slot{background:var(--white);min-height:400px}
+/* Serve form: Fillout sizes the embed to fit the form, so the State Agencies dropdown
+   (300px tall) ran past the bottom and its last options were cut off. Give the embed
+   220px of extra room below the form. */
+[data-form="serve"] .fillout-slot{box-sizing:content-box;padding-bottom:220px}
+[data-form="serve"] .fillout-embed-standard{height:calc(100% + 220px)}
 
 /* footer */
 footer{background:var(--navy);color:#C9CEE6;font-size:14px}
