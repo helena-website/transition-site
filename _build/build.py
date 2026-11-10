@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parent.parent  # repo root
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from es import ES  # noqa: E402  Spanish text
 
-# Meet the Team: "Leadership Transition Committee" section. Hidden for now; set to True to show it again.
-SHOW_COMMITTEE_LEADS = False
+# Meet the Team: "Leadership Transition Committee" section. Set to False to hide it.
+SHOW_COMMITTEE = True
 
 # Pages that also have a Spanish version at es/<path>. Every other page is English only.
 ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
@@ -87,8 +87,9 @@ EN = {
         ("Anthony Aquino", "Public Engagement Liaison"),
     ],
     "team_committee_h2": "Leadership Transition Committee",
-    "lead_name": "Name",
-    "lead_role": "Current role and organization",
+    "committee_chairs_h3": "Transition Chairs",
+    "chair_title": "Transition Chair",
+    "committee_members_h3": "Committee Members",
 
     "gi_title": "Get Involved",
     "gi_desc": "Tell us you want to serve or share an idea.",
@@ -478,6 +479,34 @@ LEADER_EMAILS = {"caitlin-molina": "caitlin@helenatransition.com", "rj-kermes": 
 LEADERS_HIDDEN = set()
 
 
+# Leadership Transition Committee. Names and organizations are the same in English and Spanish.
+# Chairs: (name, photo in assets/img/team/). Members: (name, organization), in Manual slide 11 order.
+COMMITTEE_CHAIRS = [("Bari Harlam", "bari-harlam"), ("Mayor Maria Rivera", "maria-rivera")]
+COMMITTEE_MEMBERS = [
+    ("Danny Bianco", "LIUNA"),
+    ("Carrie Bridges Feliz", "Brown University Health"),
+    ("Joanne Chang", "Investor & Strategy Advisor"),
+    ("David Cicilline", "Rhode Island Foundation"),
+    ("Maria Barry", "RIHousing Board of Commissioners"),
+    ("Janet Coit", "Farm Fresh RI"),
+    ("Rep. Nathan W. Biah Sr.", "RI House of Representatives"),
+    ("Christian Cowan", "Polaris"),
+    ("Pat Crowley", "Rhode Island AFL-CIO"),
+    ("Senator Lou DiPalma", "RI Senate"),
+    ("Dr. Sarah Friedman Lowe", "Education Strategy, City of Central Falls"),
+    ("Keith Kelly", "Citizens Bank"),
+    ("Billy Libby", "Upper90"),
+    ("Jesse Martin", "SEIU Rhode Island State Council"),
+    ("Patricia Martinez", "Central Falls School District"),
+    ("Cortney Nicolato", "United Way of Rhode Island"),
+    ("Paige Parks", "Rhode Island KIDS COUNT"),
+    ("Mayor Joe Polisena", "Town of Johnston"),
+    ("Dr. Pablo Rodriguez", "Nuestra Salud Productions"),
+    ("Sandi Peterson", "Clayton, Dubilier & Rice"),
+    ("Mike McNally", "Granite Construction"),
+]
+
+
 def leaders(t):
     if len(t["leaders"]) != len(LEADER_PHOTOS):
         raise SystemExit(f'"leaders" has {len(t["leaders"])} people but LEADER_PHOTOS has {len(LEADER_PHOTOS)} photos')
@@ -497,20 +526,30 @@ def leaders(t):
 
 def team_page(t):
     bio = "\n".join(f"        <p>{p}</p>" for p in t["team_bio"])
-    committee = "\n".join(
-        f"""        <li><strong>{t["lead_name"]}</strong><span>{t["lead_role"]}</span></li>""" for _ in range(6))
+    chairs = "\n".join(f"""        <div class="person">
+          <img class="portrait" src="{{pre}}assets/img/team/{img}.webp" alt="{name}" width="480" height="480" loading="lazy">
+          <h3>{name}</h3>
+          <p class="role">{t["chair_title"]}</p>
+        </div>""" for name, img in COMMITTEE_CHAIRS)
+    members = "\n".join(
+        f"""        <li><strong>{name}</strong><span>{org}</span></li>""" for name, org in COMMITTEE_MEMBERS)
     committee_section = f"""
   <section class="band">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head wide">
         <h2>{t["team_committee_h2"]}</h2>
       </div>
-      <ul class="leads">
-{committee}
+      <h3 class="sub-h">{t["committee_chairs_h3"]}</h3>
+      <div class="people">
+{chairs}
+      </div>
+      <h3 class="sub-h sub-h-next">{t["committee_members_h3"]}</h3>
+      <ul class="members">
+{members}
       </ul>
     </div>
   </section>
-""" if SHOW_COMMITTEE_LEADS else ""
+""" if SHOW_COMMITTEE else ""
     return f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">{t["team_eyebrow"]}</p>

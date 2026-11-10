@@ -158,6 +158,16 @@ img.portrait{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:co
 .leads span{color:var(--muted);font-size:14px}
 @media (max-width:860px){.leads{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.leads{grid-template-columns:1fr}}
+/* Leadership Transition Committee */
+.sec-head.wide{max-width:none}
+.sub-h{font-size:26px;color:var(--navy);margin:0 0 24px}
+.sub-h-next{margin-top:56px}
+.members{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.members li{background:#fff;border:1px solid var(--lav);border-left:4px solid var(--blue);padding:16px 18px;display:grid;gap:4px;align-content:start}
+.members strong{font-size:17px;color:var(--navy);line-height:1.3}
+.members span{color:var(--muted);font-size:14px;line-height:1.4}
+@media (max-width:860px){.members{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.members{grid-template-columns:1fr}}
 
 
 /* news */

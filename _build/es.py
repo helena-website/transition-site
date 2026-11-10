@@ -72,8 +72,9 @@ ES = {
         ("Anthony Aquino", "Enlace de Participación Pública"),
     ],
     "team_committee_h2": "Comité de Liderazgo de la Transición",
-    "lead_name": "Nombre",
-    "lead_role": "Cargo actual y organización",
+    "committee_chairs_h3": "Presidentas de la Transición",
+    "chair_title": "Presidenta de la Transición",
+    "committee_members_h3": "Miembros del Comité",
 
     # ---------- Get Involved ----------
     "gi_title": "Participe",
