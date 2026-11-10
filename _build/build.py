@@ -27,7 +27,7 @@ from es import ES  # noqa: E402  Spanish text
 SHOW_COMMITTEE = True
 
 # Pages that also have a Spanish version at es/<path>. Every other page is English only.
-ES_PAGES = ["", "team/", "plans/", "get-involved/", "get-involved/serve/",
+ES_PAGES = ["", "team/", "inauguration/", "plans/", "get-involved/", "get-involved/serve/",
             "get-involved/share-an-idea/", "invitehelena/", "news/"]
 
 # ---------- English text ----------
@@ -40,6 +40,7 @@ EN = {
     "nav_team": "Meet the Team",
     "nav_plans": "Plans",
     "nav_news": "News",
+    "nav_inaug": "Inauguration",
     "get_involved_btn": "Get involved",
     "get_involved_menu": "Get Involved",
     "menu": "Menu",
@@ -133,6 +134,27 @@ EN = {
     "plans_note": "",
     "plans_btn": "Read the plan",
 
+    "inaug_title": "Inauguration",
+    "inaug_desc": "Celebrate the inauguration of Governor-elect Helena Foulkes and support the Inaugural Committee.",
+    "inaug_eyebrow": "Inauguration",
+    "inaug_h1": "Celebrate a new chapter for Rhode Island",
+    "inaug_lead": "Join us in January as Helena Foulkes is sworn in as Governor of Rhode Island.",
+    "inaug_donate_eyebrow": "Support the inauguration",
+    "inaug_donate_h2": "Help make the inauguration happen",
+    "inaug_donate_text": "Contributions to the Inaugural Committee help pay for inaugural events the state doesn't cover.",
+    "inaug_donate_btn": "Donate",
+    "inaug_donate_large": "Giving on behalf of a company or organization? Email",
+    "inaug_leaders_h2": "Inaugural leadership",
+    "inaug_director_title": "Inaugural Executive Director",
+    "inaug_cochair_title": "Inaugural Co-Chair",
+    "inaug_thanks_h2": "Thank you",
+    "inaug_thanks_lead": "These people and organizations are making the inauguration possible.",
+    "inaug_people_h3": "People",
+    "inaug_orgs_h3": "Organizations",
+    "ph_photo": "Photo",
+    "ph_name": "Name",
+    "ph_org": "Organization",
+
     "news_title": "News",
     "news_desc": "News from the Helena Foulkes transition.",
     "news_eyebrow": "News",
@@ -180,7 +202,7 @@ def page(path, title, body, desc="", forms=False, lang="en"):
         """Link to page p in this language, or to the English page when there's no Spanish one."""
         return (home if p in ES_PAGES else pre) + p
 
-    nav_items = [("", t["nav_home"]), ("team/", t["nav_team"]), ("plans/", t["nav_plans"]), ("news/", t["nav_news"])]
+    nav_items = [("", t["nav_home"]), ("team/", t["nav_team"]), ("inauguration/", t["nav_inaug"]), ("plans/", t["nav_plans"]), ("news/", t["nav_news"])]
     nav = []
     for href, label in nav_items:
         cur = ' aria-current="page"' if href == path or (href and path.startswith(href)) else ""
@@ -585,6 +607,105 @@ def team_page(t):
 {committee_section}"""
 
 
+# ---------- Inauguration page ----------
+# Donate link from the payment processor (to be decided). Empty = the button shows as a placeholder.
+INAUG_DONATE_URL = ""
+# Email for company and organization gifts. Empty = placeholder.
+INAUG_EMAIL = ""
+# Legal name and disclaimer line under the Donate button, from counsel. Empty = placeholder.
+INAUG_DISCLAIMER = ""
+# Director and co-chairs: (name, photo in assets/img/team/ or "", title key). Empty name = placeholder card.
+INAUG_LEADERS = [
+    ("Nora Barre", "", "inaug_director_title"),
+    ("", "", "inaug_cochair_title"),
+    ("", "", "inaug_cochair_title"),
+]
+# Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
+INAUG_THANKS_PEOPLE = []
+INAUG_THANKS_ORGS = []
+
+
+def inaug_person(t, name, img, title_key):
+    if img:
+        pic = f'<img class="portrait" src="{{pre}}assets/img/team/{img}.webp" alt="{name}" width="480" height="480" loading="lazy">'
+    else:
+        pic = f'<div class="portrait" aria-hidden="true">{t["ph_photo"]}</div>'
+    shown = name or ph(t["ph_name"])
+    return f"""        <div class="person">
+          {pic}
+          <h3>{shown}</h3>
+          <p class="role">{t[title_key]}</p>
+        </div>"""
+
+
+def thanks_list(items, placeholder, n=6):
+    rows = items or [ph(placeholder)] * n
+    return "\n".join(f"        <li><strong>{x}</strong></li>" for x in rows)
+
+
+def inauguration_page(t):
+    leaders_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS)
+    if INAUG_DONATE_URL:
+        donate_btn = f'<a class="btn btn-green" href="{INAUG_DONATE_URL}" target="_blank" rel="noopener">{t["inaug_donate_btn"]}</a>'
+    else:
+        donate_btn = f'<a class="btn btn-green" href="#donate">{t["inaug_donate_btn"]}</a> {ph("Link from payment processor")}'
+    email = f'<a href="mailto:{INAUG_EMAIL}">{INAUG_EMAIL}</a>' if INAUG_EMAIL else ph("email")
+    fine = INAUG_DISCLAIMER or ph("Committee legal name and disclaimer from counsel")
+    return f"""  <section class="hero slim">
+    <div class="wrap">
+      <p class="eyebrow">{t["inaug_eyebrow"]}</p>
+      <h1>{t["inaug_h1"]}</h1>
+      <p class="lead">{t["inaug_lead"]}</p>
+    </div>
+  </section>
+
+  <section class="band lav" id="donate">
+    <div class="wrap">
+      <div class="donate">
+        <div>
+          <p class="eyebrow" style="color:var(--green)">{t["inaug_donate_eyebrow"]}</p>
+          <h2>{t["inaug_donate_h2"]}</h2>
+          <p>{t["inaug_donate_text"]}</p>
+        </div>
+        <div class="donate-act">
+          <p>{donate_btn}</p>
+          <p class="fine">{t["inaug_donate_large"]} {email}.</p>
+          <p class="fine">{fine}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>{t["inaug_leaders_h2"]}</h2>
+      </div>
+      <div class="people">
+{leaders_html}
+      </div>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="wrap">
+      <div class="sec-head wide">
+        <h2>{t["inaug_thanks_h2"]}</h2>
+        <p>{t["inaug_thanks_lead"]}</p>
+      </div>
+      <h3 class="sub-h">{t["inaug_people_h3"]}</h3>
+      <ul class="members">
+{thanks_list(INAUG_THANKS_PEOPLE, t["ph_name"])}
+      </ul>
+      <h3 class="sub-h sub-h-next">{t["inaug_orgs_h3"]}</h3>
+      <ul class="members">
+{thanks_list(INAUG_THANKS_ORGS, t["ph_org"])}
+      </ul>
+    </div>
+  </section>
+"""
+
+
 def get_involved_page(t):
     values = "\n".join(f"        <li><h3>{h}</h3><p>{p}</p></li>" for h, p in t["gi_values"])
     return f"""  <section class="hero slim">
@@ -742,6 +863,7 @@ def build_lang(lang):
     t = TEXT[lang]
     page("", "", home_page(t), t["home_desc"], lang=lang)
     page("team/", t["team_title"], team_page(t), t["team_desc"], lang=lang)
+    page("inauguration/", t["inaug_title"], inauguration_page(t), t["inaug_desc"], lang=lang)
     page("get-involved/", t["gi_title"], get_involved_page(t), t["gi_desc"], lang=lang)
     page("get-involved/share-an-idea/", t["idea_page_title"], idea_page(t, lang), t["idea_desc"], forms=True, lang=lang)
     page("invitehelena/", t["invite_page_title"], invite_page(t, lang), t["invite_desc"], forms=True, lang=lang)
