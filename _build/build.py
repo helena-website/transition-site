@@ -639,9 +639,11 @@ INAUG_DATE = "January 5, 2027"
 INAUG_TIME = ""
 INAUG_PLACE = ""
 # Sections. "More details coming soon" always shows, at the bottom of the page.
-INAUG_SHOW_DONATE = True
-INAUG_SHOW_ATTEND = True
-INAUG_SHOW_THANKS = True
+# 11/11: scope cut to leadership + coming soon (no payments on the site, per Bill). Donate/Attend/Thank you
+# stay in the code, switched off; set to True to bring one back.
+INAUG_SHOW_DONATE = False
+INAUG_SHOW_ATTEND = False
+INAUG_SHOW_THANKS = False
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
 INAUG_THANKS_ORGS = []
@@ -732,8 +734,9 @@ def inauguration_page(t):
     </div>
   </section>
 """
+    soon_bg = "band" if INAUG_SHOW_THANKS else "band soft"
     soon = f"""
-  <section class="band">
+  <section class="{soon_bg}">
     <div class="wrap">
       <div class="sec-head wide">
         <h2>{t["inaug_soon_h2"]}</h2>

@@ -1,0 +1,1 @@
+inauguration-full-version-2026-11-11.png: the Inauguration tab with Donate, Attend and Thank you sections, before scope was cut to leadership + "More details coming soon" (11/11). Those sections are still in _build/build.py behind INAUG_SHOW_DONATE / INAUG_SHOW_ATTEND / INAUG_SHOW_THANKS.
