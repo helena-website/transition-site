@@ -634,7 +634,7 @@ INAUG_DISCLAIMER = ""
 # Director and co-chairs: (name, photo in assets/img/team/ or "", title key). Empty name = placeholder card.
 INAUG_LEADERS = [
     ("Nora Barre", "nora-barre", "inaug_director_title"),
-    ("Kate Ramstad", "", "inaug_finance_title"),
+    ("Kate Ramstad", "kate-ramstad", "inaug_finance_title"),
     ("Senator Ana Quezada", "ana-quezada", "inaug_chair_title"),
     ("Navyn Salem", "navyn-salem", "inaug_chair_title"),
     ("Julie Owens", "julie-owens", "inaug_chair_title"),
