@@ -635,12 +635,12 @@ INAUG_DISCLAIMER = ""
 INAUG_LEADERS = [
     ("Nora Barre", "nora-barre", "inaug_director_title"),
     ("Kate Ramstad", "", "inaug_finance_title"),
-    ("Senator Ana Quezada", "", "inaug_chair_title"),
-    ("Navyn Salem", "", "inaug_chair_title"),
-    ("Julie Owens", "", "inaug_chair_title"),
-    ("Frank DiGiammarino", "", "inaug_chair_title"),
-    ("Dr. Saira Hussein", "", "inaug_chair_title"),
-    ("Lisa Andoscia", "", "inaug_chair_title"),
+    ("Senator Ana Quezada", "ana-quezada", "inaug_chair_title"),
+    ("Navyn Salem", "navyn-salem", "inaug_chair_title"),
+    ("Julie Owens", "julie-owens", "inaug_chair_title"),
+    ("Frank DiGiammarino", "frank-digiammarino", "inaug_chair_title"),
+    ("Dr. Saira Hussein", "saira-hussein", "inaug_chair_title"),
+    ("Lisa Andoscia", "lisa-andoscia", "inaug_chair_title"),
 ]
 # RSVP or ticket link (Fillout). Empty = the Attend button shows as a placeholder.
 INAUG_ATTEND_URL = ""
