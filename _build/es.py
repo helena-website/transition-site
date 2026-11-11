@@ -171,6 +171,8 @@ ES = {
     "inaug_thanks_lead": "Estas personas y organizaciones están haciendo posible la inauguración.",
     "inaug_people_h3": "Personas",
     "inaug_orgs_h3": "Organizaciones",
+    "inaug_soon_h2": "Más detalles próximamente",
+    "inaug_soon_text": "Aquí publicaremos los detalles del evento y las formas de participar en la inauguración.",
     "ph_photo": "Foto",
     "ph_name": "Nombre",
     "ph_org": "Organización",

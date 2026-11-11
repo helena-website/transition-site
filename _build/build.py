@@ -151,6 +151,8 @@ EN = {
     "inaug_thanks_lead": "These people and organizations are making the inauguration possible.",
     "inaug_people_h3": "People",
     "inaug_orgs_h3": "Organizations",
+    "inaug_soon_h2": "More details coming soon",
+    "inaug_soon_text": "Event details and ways to take part in the inauguration will be posted here.",
     "ph_photo": "Photo",
     "ph_name": "Name",
     "ph_org": "Organization",
@@ -620,6 +622,9 @@ INAUG_LEADERS = [
     ("", "", "inaug_cochair_title"),
     ("", "", "inaug_cochair_title"),
 ]
+# Thursday 11/12 launch shows leadership + "More details coming soon". Turn these on when ready.
+INAUG_SHOW_DONATE = False
+INAUG_SHOW_THANKS = False
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
 INAUG_THANKS_ORGS = []
@@ -651,14 +656,15 @@ def inauguration_page(t):
         donate_btn = f'<a class="btn btn-green" href="#donate">{t["inaug_donate_btn"]}</a> {ph("Link from payment processor")}'
     email = f'<a href="mailto:{INAUG_EMAIL}">{INAUG_EMAIL}</a>' if INAUG_EMAIL else ph("email")
     fine = INAUG_DISCLAIMER or ph("Committee legal name and disclaimer from counsel")
-    return f"""  <section class="hero slim">
+    hero = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">{t["inaug_eyebrow"]}</p>
       <h1>{t["inaug_h1"]}</h1>
       <p class="lead">{t["inaug_lead"]}</p>
     </div>
   </section>
-
+"""
+    donate = f"""
   <section class="band lav" id="donate">
     <div class="wrap">
       <div class="donate">
@@ -675,7 +681,8 @@ def inauguration_page(t):
       </div>
     </div>
   </section>
-
+"""
+    leaders = f"""
   <section class="band">
     <div class="wrap">
       <div class="sec-head">
@@ -686,7 +693,18 @@ def inauguration_page(t):
       </div>
     </div>
   </section>
-
+"""
+    soon = f"""
+  <section class="band soft">
+    <div class="wrap">
+      <div class="sec-head wide">
+        <h2>{t["inaug_soon_h2"]}</h2>
+        <p>{t["inaug_soon_text"]}</p>
+      </div>
+    </div>
+  </section>
+"""
+    thanks = f"""
   <section class="band soft">
     <div class="wrap">
       <div class="sec-head wide">
@@ -704,6 +722,12 @@ def inauguration_page(t):
     </div>
   </section>
 """
+    parts = [hero]
+    if INAUG_SHOW_DONATE:
+        parts.append(donate)
+    parts.append(leaders)
+    parts.append(thanks if INAUG_SHOW_THANKS else soon)
+    return "".join(parts)
 
 
 def get_involved_page(t):
