@@ -245,4 +245,6 @@ footer p{margin:0 0 8px}
 .donate-act{display:grid;gap:12px}
 .donate-act .btn{font-size:18px;padding-inline:40px}
 .donate .fine{font-size:14px;color:var(--muted)}
+.donate + .donate{margin-top:24px}
+.event-facts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:6px}
 @media (max-width:860px){.donate{grid-template-columns:1fr;gap:24px;padding:24px}}

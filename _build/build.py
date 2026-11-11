@@ -151,6 +151,16 @@ EN = {
     "inaug_thanks_lead": "These people and organizations are making the inauguration possible.",
     "inaug_people_h3": "People",
     "inaug_orgs_h3": "Organizations",
+    "inaug_attend_eyebrow": "Join us",
+    "inaug_attend_h2": "Attend the inauguration",
+    "inaug_attend_text": "Be there as Helena Foulkes is sworn in as Rhode Island's next Governor.",
+    "inaug_attend_btn": "Attend",
+    "inaug_attend_fine": "Reserve your spot.",
+    "inaug_when": "When:",
+    "inaug_where": "Where:",
+    "inaug_time": "Time",
+    "inaug_place": "Location",
+    "inaug_date": "January 5, 2027",
     "inaug_soon_h2": "More details coming soon",
     "inaug_soon_text": "Event details and ways to take part in the inauguration will be posted here.",
     "ph_photo": "Photo",
@@ -618,13 +628,20 @@ INAUG_EMAIL = ""
 INAUG_DISCLAIMER = ""
 # Director and co-chairs: (name, photo in assets/img/team/ or "", title key). Empty name = placeholder card.
 INAUG_LEADERS = [
-    ("Nora Barre", "", "inaug_director_title"),
+    ("Nora Barre", "nora-barre", "inaug_director_title"),
     ("", "", "inaug_cochair_title"),
     ("", "", "inaug_cochair_title"),
 ]
-# Thursday 11/12 launch shows leadership + "More details coming soon". Turn these on when ready.
-INAUG_SHOW_DONATE = False
-INAUG_SHOW_THANKS = False
+# RSVP or ticket link (Fillout). Empty = the Attend button shows as a placeholder.
+INAUG_ATTEND_URL = ""
+# Event details for the Attend box. Empty = placeholder.
+INAUG_DATE = "January 5, 2027"
+INAUG_TIME = ""
+INAUG_PLACE = ""
+# Sections. "More details coming soon" always shows, at the bottom of the page.
+INAUG_SHOW_DONATE = True
+INAUG_SHOW_ATTEND = True
+INAUG_SHOW_THANKS = True
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
 INAUG_THANKS_ORGS = []
@@ -656,6 +673,10 @@ def inauguration_page(t):
         donate_btn = f'<a class="btn btn-green" href="#donate">{t["inaug_donate_btn"]}</a> {ph("Link from payment processor")}'
     email = f'<a href="mailto:{INAUG_EMAIL}">{INAUG_EMAIL}</a>' if INAUG_EMAIL else ph("email")
     fine = INAUG_DISCLAIMER or ph("Committee legal name and disclaimer from counsel")
+    if INAUG_ATTEND_URL:
+        attend_btn = f'<a class="btn btn-green" href="{INAUG_ATTEND_URL}" target="_blank" rel="noopener">{t["inaug_attend_btn"]}</a>'
+    else:
+        attend_btn = f'<a class="btn btn-green" href="#attend">{t["inaug_attend_btn"]}</a> {ph("RSVP or ticket link")}'
     hero = f"""  <section class="hero slim">
     <div class="wrap">
       <p class="eyebrow">{t["inaug_eyebrow"]}</p>
@@ -679,7 +700,24 @@ def inauguration_page(t):
           <p class="fine">{fine}</p>
         </div>
       </div>
-    </div>
+"""
+    attend = f"""      <div class="donate" id="attend">
+        <div>
+          <p class="eyebrow" style="color:var(--green)">{t["inaug_attend_eyebrow"]}</p>
+          <h2>{t["inaug_attend_h2"]}</h2>
+          <p>{t["inaug_attend_text"]}</p>
+          <ul class="event-facts">
+            <li><strong>{t["inaug_when"]}</strong> {t["inaug_date"] if INAUG_DATE else ph(t["inaug_when"])}{", " + INAUG_TIME if INAUG_TIME else " " + ph(t["inaug_time"])}</li>
+            <li><strong>{t["inaug_where"]}</strong> {INAUG_PLACE or ph(t["inaug_place"])}</li>
+          </ul>
+        </div>
+        <div class="donate-act">
+          <p>{attend_btn}</p>
+          <p class="fine">{t["inaug_attend_fine"]}</p>
+        </div>
+      </div>
+"""
+    give_close = """    </div>
   </section>
 """
     leaders = f"""
@@ -695,7 +733,7 @@ def inauguration_page(t):
   </section>
 """
     soon = f"""
-  <section class="band soft">
+  <section class="band">
     <div class="wrap">
       <div class="sec-head wide">
         <h2>{t["inaug_soon_h2"]}</h2>
@@ -723,10 +761,15 @@ def inauguration_page(t):
   </section>
 """
     parts = [hero]
-    if INAUG_SHOW_DONATE:
-        parts.append(donate)
+    if INAUG_SHOW_DONATE or INAUG_SHOW_ATTEND:
+        give = donate if INAUG_SHOW_DONATE else '\n  <section class="band lav" id="donate">\n    <div class="wrap">\n'
+        if INAUG_SHOW_ATTEND:
+            give += attend
+        parts.append(give + give_close)
     parts.append(leaders)
-    parts.append(thanks if INAUG_SHOW_THANKS else soon)
+    if INAUG_SHOW_THANKS:
+        parts.append(thanks)
+    parts.append(soon)
     return "".join(parts)
 
 
