@@ -214,7 +214,7 @@ def page(path, title, body, desc="", forms=False, lang="en"):
         """Link to page p in this language, or to the English page when there's no Spanish one."""
         return (home if p in ES_PAGES else pre) + p
 
-    nav_items = [("", t["nav_home"]), ("team/", t["nav_team"]), ("inauguration/", t["nav_inaug"]), ("plans/", t["nav_plans"]), ("news/", t["nav_news"])]
+    nav_items = [("", t["nav_home"]), ("team/", t["nav_team"]), ("plans/", t["nav_plans"]), ("inauguration/", t["nav_inaug"]), ("news/", t["nav_news"])]
     nav = []
     for href, label in nav_items:
         cur = ' aria-current="page"' if href == path or (href and path.startswith(href)) else ""
