@@ -144,7 +144,9 @@ EN = {
     "inaug_donate_text": "Contributions to the Inaugural Committee help pay for inaugural events the state doesn't cover.",
     "inaug_donate_btn": "Donate",
     "inaug_donate_large": "Giving on behalf of a company or organization? Email",
-    "inaug_leaders_h2": "Inaugural leadership",
+    "inaug_leaders_h2": "Inaugural Leadership Team",
+    "inaug_committee_h2": "Inaugural Committee",
+    "inaug_chairs_h3": "Inaugural Chairs",
     "inaug_director_title": "Executive Director",
     "inaug_finance_title": "Finance Director",
     "inaug_chair_title": "Inaugural Chair",
@@ -162,7 +164,7 @@ EN = {
     "inaug_time": "Time",
     "inaug_place": "Location",
     "inaug_date": "January 5, 2027",
-    "inaug_host_h2": "Inaugural Host Committee",
+    "inaug_host_h2": "Host Committee",
     "inaug_host_note": "(and growing!)",
     "inaug_soon_h2": "More details coming soon",
     "inaug_soon_text": "Event details and ways to take part in the inauguration will be posted here.",
@@ -682,10 +684,12 @@ INAUG_HOST_COMMITTEE = [
     "Perry Raso",
     "Renu Englehart",
     "Rich Fuka",
-    "Roger Schuite and Olinda",
+    "Roger Schuite",
+    "Olinda Urizar",
     "Saira Hussein",
-    "Susan Buonanno Cicilline",
+    "Susan Buonanno",
     "Ting Barnard",
+    "Tiana Ochoa Teo",
 ]
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
@@ -711,7 +715,8 @@ def thanks_list(items, placeholder, n=6):
 
 
 def inauguration_page(t):
-    leaders_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS)
+    leaders_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS if p[2] != "inaug_chair_title")
+    chairs_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS if p[2] == "inaug_chair_title")
     if INAUG_DONATE_URL:
         donate_btn = f'<a class="btn btn-green" href="{INAUG_DONATE_URL}" target="_blank" rel="noopener">{t["inaug_donate_btn"]}</a>'
     else:
@@ -768,7 +773,7 @@ def inauguration_page(t):
     leaders = f"""
   <section class="band">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head wide">
         <h2>{t["inaug_leaders_h2"]}</h2>
       </div>
       <div class="people">
@@ -783,8 +788,13 @@ def inauguration_page(t):
   <section class="band soft">
     <div class="wrap">
       <div class="sec-head wide">
-        <h2>{t["inaug_host_h2"]} <span class="h2-note">{t["inaug_host_note"]}</span></h2>
+        <h2>{t["inaug_committee_h2"]}</h2>
       </div>
+      <h3 class="sub-h">{t["inaug_chairs_h3"]}</h3>
+      <div class="people">
+{chairs_html}
+      </div>
+      <h3 class="sub-h sub-h-next">{t["inaug_host_h2"]} <span class="h2-note">{t["inaug_host_note"]}</span></h3>
       <ul class="members">
 {host_members}
       </ul>

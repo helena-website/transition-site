@@ -247,5 +247,6 @@ footer p{margin:0 0 8px}
 .donate .fine{font-size:14px;color:var(--muted)}
 .donate + .donate{margin-top:24px}
 .h2-note{display:inline-block;font-size:.42em;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);vertical-align:middle}
+.sub-h .h2-note{font-size:.62em}
 .event-facts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:6px}
 @media (max-width:860px){.donate{grid-template-columns:1fr;gap:24px;padding:24px}}
