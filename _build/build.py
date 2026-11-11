@@ -161,6 +161,9 @@ EN = {
     "inaug_time": "Time",
     "inaug_place": "Location",
     "inaug_date": "January 5, 2027",
+    "inaug_host_h2": "Inaugural Host Committee",
+    "inaug_host_note": "(a growing list, with more names added regularly)",
+    "ph_role_org": "Role or organization",
     "inaug_soon_h2": "More details coming soon",
     "inaug_soon_text": "Event details and ways to take part in the inauguration will be posted here.",
     "ph_photo": "Photo",
@@ -644,6 +647,10 @@ INAUG_PLACE = ""
 INAUG_SHOW_DONATE = False
 INAUG_SHOW_ATTEND = False
 INAUG_SHOW_THANKS = False
+INAUG_SHOW_HOST = True
+# Inaugural Host Committee: (name, role or organization). Same card format as Committee Members on Meet the Team.
+# Empty = placeholder cards. Names only, same in English and Spanish.
+INAUG_HOST_COMMITTEE = []
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
 INAUG_THANKS_ORGS = []
@@ -734,7 +741,22 @@ def inauguration_page(t):
     </div>
   </section>
 """
-    soon_bg = "band" if INAUG_SHOW_THANKS else "band soft"
+    host_rows = INAUG_HOST_COMMITTEE or [(ph(t["ph_name"]), ph(t["ph_role_org"]))] * 6
+    host_members = "\n".join(f"""        <li><strong>{name}</strong><span>{org}</span></li>""" for name, org in host_rows)
+    host = f"""
+  <section class="band soft">
+    <div class="wrap">
+      <div class="sec-head wide">
+        <h2>{t["inaug_host_h2"]} <span class="h2-note">{t["inaug_host_note"]}</span></h2>
+      </div>
+      <ul class="members">
+{host_members}
+      </ul>
+    </div>
+  </section>
+"""
+    # Alternate band colors below the leadership section (white).
+    soon_bg = "band" if (INAUG_SHOW_HOST != INAUG_SHOW_THANKS) else "band soft"
     soon = f"""
   <section class="{soon_bg}">
     <div class="wrap">
@@ -770,6 +792,8 @@ def inauguration_page(t):
             give += attend
         parts.append(give + give_close)
     parts.append(leaders)
+    if INAUG_SHOW_HOST:
+        parts.append(host)
     if INAUG_SHOW_THANKS:
         parts.append(thanks)
     parts.append(soon)
