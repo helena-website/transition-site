@@ -146,7 +146,7 @@ EN = {
     "inaug_donate_large": "Giving on behalf of a company or organization? Email",
     "inaug_leaders_h2": "Inaugural leadership",
     "inaug_director_title": "Inaugural Executive Director",
-    "inaug_cochair_title": "Inaugural Co-Chair",
+    "inaug_chair_title": "Inaugural Chair",
     "inaug_thanks_h2": "Thank you",
     "inaug_thanks_lead": "These people and organizations are making the inauguration possible.",
     "inaug_people_h3": "People",
@@ -163,7 +163,6 @@ EN = {
     "inaug_date": "January 5, 2027",
     "inaug_host_h2": "Inaugural Host Committee",
     "inaug_host_note": "(a growing list, with more names added regularly)",
-    "ph_role_org": "Role or organization",
     "inaug_soon_h2": "More details coming soon",
     "inaug_soon_text": "Event details and ways to take part in the inauguration will be posted here.",
     "ph_photo": "Photo",
@@ -632,8 +631,12 @@ INAUG_DISCLAIMER = ""
 # Director and co-chairs: (name, photo in assets/img/team/ or "", title key). Empty name = placeholder card.
 INAUG_LEADERS = [
     ("Nora Barre", "nora-barre", "inaug_director_title"),
-    ("", "", "inaug_cochair_title"),
-    ("", "", "inaug_cochair_title"),
+    ("", "", "inaug_chair_title"),
+    ("", "", "inaug_chair_title"),
+    ("", "", "inaug_chair_title"),
+    ("", "", "inaug_chair_title"),
+    ("", "", "inaug_chair_title"),
+    ("", "", "inaug_chair_title"),
 ]
 # RSVP or ticket link (Fillout). Empty = the Attend button shows as a placeholder.
 INAUG_ATTEND_URL = ""
@@ -648,8 +651,8 @@ INAUG_SHOW_DONATE = False
 INAUG_SHOW_ATTEND = False
 INAUG_SHOW_THANKS = False
 INAUG_SHOW_HOST = True
-# Inaugural Host Committee: (name, role or organization). Same card format as Committee Members on Meet the Team.
-# Empty = placeholder cards. Names only, same in English and Spanish.
+# Inaugural Host Committee: names only, one string per person. Same card style as Committee Members on Meet the Team.
+# Empty = placeholder cards. Same in English and Spanish.
 INAUG_HOST_COMMITTEE = []
 # Thank-you lists. Names only, same in English and Spanish. Empty = placeholder rows for the mock.
 INAUG_THANKS_PEOPLE = []
@@ -661,7 +664,7 @@ def inaug_person(t, name, img, title_key):
         pic = f'<img class="portrait" src="{{pre}}assets/img/team/{img}.webp" alt="{name}" width="480" height="480" loading="lazy">'
     else:
         pic = f'<div class="portrait" aria-hidden="true">{t["ph_photo"]}</div>'
-    shown = name or ph(t["ph_name"])
+    shown = name or t["ph_name"]
     return f"""        <div class="person">
           {pic}
           <h3>{shown}</h3>
@@ -675,7 +678,10 @@ def thanks_list(items, placeholder, n=6):
 
 
 def inauguration_page(t):
-    leaders_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS)
+    # Director on her own row, then the chairs (6 fill two rows of 3).
+    director_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS if p[2] != "inaug_chair_title")
+    chairs_html = "\n".join(inaug_person(t, *p) for p in INAUG_LEADERS if p[2] == "inaug_chair_title")
+    leaders_html = director_html + "\n      </div>\n      <div class=\"people people-next\">\n" + chairs_html
     if INAUG_DONATE_URL:
         donate_btn = f'<a class="btn btn-green" href="{INAUG_DONATE_URL}" target="_blank" rel="noopener">{t["inaug_donate_btn"]}</a>'
     else:
@@ -741,8 +747,8 @@ def inauguration_page(t):
     </div>
   </section>
 """
-    host_rows = INAUG_HOST_COMMITTEE or [(ph(t["ph_name"]), ph(t["ph_role_org"]))] * 6
-    host_members = "\n".join(f"""        <li><strong>{name}</strong><span>{org}</span></li>""" for name, org in host_rows)
+    host_rows = INAUG_HOST_COMMITTEE or [t["ph_name"]] * 6
+    host_members = "\n".join(f"""        <li><strong>{name}</strong></li>""" for name in host_rows)
     host = f"""
   <section class="band soft">
     <div class="wrap">
