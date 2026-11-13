@@ -523,7 +523,7 @@ LEADERS_HIDDEN = set()
 COMMITTEE_CHAIRS = [("Bari Harlam", "bari-harlam"), ("Mayor Maria Rivera", "maria-rivera")]
 COMMITTEE_MEMBERS = [
     ("Danny Bianco", "LIUNA"),
-    ("Carrie Bridges Feliz", "Brown University Health"),
+    ("Carrie Bridges", "Brown University Health"),
     ("Joanne Chang", "Investor & Strategy Advisor"),
     ("David Cicilline", "Rhode Island Foundation"),
     ("Maria Barry", "RIHousing Board of Commissioners"),
