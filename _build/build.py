@@ -483,7 +483,7 @@ LEADERS_HIDDEN = set()
 # Chairs: (name, photo in assets/img/team/). Members: (name, organization), in Manual slide 11 order.
 COMMITTEE_CHAIRS = [("Bari Harlam", "bari-harlam"), ("Mayor Maria Rivera", "maria-rivera")]
 COMMITTEE_MEMBERS = [
-    ("Danny Bianco", "LIUNA"),
+    ("Donato (“Dan”) A. Bianco, Jr.", "LIUNA"),
     ("Carrie Bridges", "Brown University Health"),
     ("Joanne Chang", "Investor & Strategy Advisor"),
     ("David Cicilline", "Rhode Island Foundation"),
