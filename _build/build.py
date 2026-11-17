@@ -865,7 +865,7 @@ def inauguration_page(t):
       <div class="people">
 {chairs_html}
       </div>
-      <h3 class="sub-h sub-h-next">{t["inaug_host_h2"]} <span class="h2-note">{t["inaug_host_note"]}</span></h3>
+      <h3 class="sub-h sub-h-next">{t["inaug_host_h2"]}</h3>
       <ul class="members">
 {host_members}
       </ul>
