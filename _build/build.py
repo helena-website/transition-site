@@ -750,7 +750,7 @@ INAUG_HOST_COMMITTEE = [
     "Rep. Scott Slater",
     "Roungrut Sonevong",
     "Councilman Franklin Solano",
-    "Senator Tina Spears",
+    "Rep. Tina Spears",
     "Matt Stone",
     "Roger Suchite",
     "Olinda Suchite-Mendez",
