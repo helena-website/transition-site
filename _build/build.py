@@ -660,6 +660,7 @@ INAUG_SHOW_HOST = True
 # Inaugural Host Committee: names only, one string per person. Same card style as Committee Members on Meet the Team.
 # Empty = placeholder cards. Same in English and Spanish.
 INAUG_HOST_COMMITTEE = [
+    "Carol Acosta",
     "Kristen Adamo",
     "Suzy Alba",
     "Gladys M. Alvarez-Arceo",
@@ -699,6 +700,7 @@ INAUG_HOST_COMMITTEE = [
     "Jenn Freitas",
     "Rich Fuka",
     "Yaremi Grullon",
+    "Tina Guenette",
     "Brian Guzman",
     "Iasha Hall",
     "Earl Hazard",
