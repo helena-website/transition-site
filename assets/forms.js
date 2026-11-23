@@ -164,10 +164,18 @@
     if (formId) {
       slot.innerHTML = "";
       if (spanish && !SPANISH[key]) slot.append(el("p", { class: "note", style: "margin-bottom:16px" }, [ES_PENDING]));
-      slot.append(el("div", { class: "fillout-slot", style: "width:100%;height:900px", "data-fillout-id": formId, "data-fillout-embed-type": "standard", "data-fillout-inherit-parameters": true, "data-fillout-dynamic-resize": true }));
+      /* Fillout resizes the embed to fit the form once it loads. If that resize never
+         arrives (seen on a phone, 11/22), the embed keeps this starting height. Forms are
+         much taller on phones, so start tall there to keep the Submit button reachable. */
+      var startHeight = window.innerWidth < 700 ? 1600 : 900;
+      slot.append(el("div", { class: "fillout-slot", style: "width:100%;height:" + startHeight + "px", "data-fillout-id": formId, "data-fillout-embed-type": "standard", "data-fillout-inherit-parameters": true, "data-fillout-dynamic-resize": true }));
       var s = document.createElement("script");
       s.src = "https://server.fillout.com/embed/v1/";
       document.body.append(s);
+      var fallback = el("a", { href: "https://forms.fillout.com/t/" + formId, target: "_blank", rel: "noopener" }, [spanish ? "abra el formulario en una ventana nueva" : "open the form in a new window"]);
+      slot.append(el("p", { class: "hint form-fallback" }, spanish
+        ? ["¿Problemas con el formulario? ", fallback, "."]
+        : ["Trouble with the form? ", fallback, "."]));
       return;
     }
 
